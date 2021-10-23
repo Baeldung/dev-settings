@@ -1,10 +1,9 @@
 package com.baeldung.ls.web.controller;
 
-import com.baeldung.ls.persistence.model.Project;
-import com.baeldung.ls.persistence.model.Task;
-import com.baeldung.ls.service.IProjectService;
-import com.baeldung.ls.web.dto.ProjectDto;
-import com.baeldung.ls.web.dto.TaskDto;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.baeldung.ls.persistence.model.Project;
+import com.baeldung.ls.persistence.model.Task;
+import com.baeldung.ls.service.IProjectService;
+import com.baeldung.ls.web.dto.ProjectDto;
+import com.baeldung.ls.web.dto.TaskDto;
 
 @Controller
 @RequestMapping(value = "/projects")
@@ -52,7 +53,10 @@ public class ProjectController {
 
     protected ProjectDto convertToDto(Project entity) {
         ProjectDto dto = new ProjectDto(entity.getId(), entity.getName(), entity.getDateCreated());
-        dto.setTasks(entity.getTasks().stream().map(t -> convertTaskToDto(t)).collect(Collectors.toSet()));
+        dto.setTasks(entity.getTasks()
+            .stream()
+            .map(t -> convertTaskToDto(t))
+            .collect(Collectors.toSet()));
         return dto;
     }
 

@@ -1,12 +1,9 @@
 package com.baeldung.um.web.controller;
 
-import com.baeldung.common.util.QueryConstants;
-import com.baeldung.common.web.controller.AbstractController;
-import com.baeldung.common.web.controller.ISortingController;
-import com.baeldung.um.persistence.model.Privilege;
-import com.baeldung.um.service.IPrivilegeService;
-import com.baeldung.um.util.UmMappings;
-import com.baeldung.um.web.dto.PrivilegeDto;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import com.baeldung.common.util.QueryConstants;
+import com.baeldung.common.web.controller.AbstractController;
+import com.baeldung.common.web.controller.ISortingController;
+import com.baeldung.um.persistence.model.Privilege;
+import com.baeldung.um.service.IPrivilegeService;
+import com.baeldung.um.util.UmMappings;
+import com.baeldung.um.web.dto.PrivilegeDto;
 
 @RestController
 @RequestMapping(UmMappings.PRIVILEGES)
 public class PrivilegeController extends AbstractController<PrivilegeDto, Privilege> implements ISortingController<PrivilegeDto> {
 
     @Autowired
-    protected ModelMapper modelmapper;
-    @Autowired
     private IPrivilegeService service;
+
+    @Autowired
+    protected ModelMapper modelmapper;
 
     public PrivilegeController() {
         super(PrivilegeDto.class);
@@ -44,7 +47,7 @@ public class PrivilegeController extends AbstractController<PrivilegeDto, Privil
     @Override
     @GetMapping(params = { QueryConstants.PAGE, QueryConstants.SIZE, QueryConstants.SORT_BY })
     public List<PrivilegeDto> findAllPaginatedAndSorted(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
-      @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
+        @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
         return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder);
     }
 

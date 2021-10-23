@@ -1,5 +1,10 @@
 package com.baeldung.ls.persistence.model;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,10 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 public class Project {
@@ -39,7 +40,9 @@ public class Project {
 
     public Project(Project project) {
         this(project.getName(), project.getDateCreated());
-        this.tasks = project.getTasks().stream().collect(Collectors.toSet());
+        this.tasks = project.getTasks()
+            .stream()
+            .collect(Collectors.toSet());
     }
 
     public Long getId() {

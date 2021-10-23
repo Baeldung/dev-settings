@@ -1,6 +1,8 @@
 package com.baeldung.um.spring;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
+import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,8 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Configuration
 @ComponentScan({ "com.baeldung.common.web", "com.baeldung.um.web" })
@@ -26,16 +27,22 @@ public class UmWebConfig implements WebMvcConfigurer {
 
     @Override
     public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
-        final Optional<HttpMessageConverter<?>> jsonConverterFound = converters.stream().filter(c -> c instanceof MappingJackson2HttpMessageConverter).findFirst();
+        final Optional<HttpMessageConverter<?>> jsonConverterFound = converters.stream()
+            .filter(c -> c instanceof MappingJackson2HttpMessageConverter)
+            .findFirst();
         if (jsonConverterFound.isPresent()) {
             final AbstractJackson2HttpMessageConverter converter = (AbstractJackson2HttpMessageConverter) jsonConverterFound.get();
-            converter.getObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            converter.getObjectMapper()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         }
 
-        final Optional<HttpMessageConverter<?>> xmlConverterFound = converters.stream().filter(c -> c instanceof MappingJackson2XmlHttpMessageConverter).findFirst();
+        final Optional<HttpMessageConverter<?>> xmlConverterFound = converters.stream()
+            .filter(c -> c instanceof MappingJackson2XmlHttpMessageConverter)
+            .findFirst();
         if (xmlConverterFound.isPresent()) {
             final MappingJackson2XmlHttpMessageConverter converter = (MappingJackson2XmlHttpMessageConverter) xmlConverterFound.get();
-            converter.getObjectMapper().enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            converter.getObjectMapper()
+                .enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         }
     }
 

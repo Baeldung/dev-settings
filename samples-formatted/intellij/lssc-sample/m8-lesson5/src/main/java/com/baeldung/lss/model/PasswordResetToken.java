@@ -1,5 +1,8 @@
 package com.baeldung.lss.model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 public class PasswordResetToken {
@@ -69,7 +70,8 @@ public class PasswordResetToken {
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(new Date().getTime());
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);
-        return new Date(cal.getTime().getTime());
+        return new Date(cal.getTime()
+            .getTime());
     }
 
     public void updateToken(final String token) {
@@ -128,7 +130,12 @@ public class PasswordResetToken {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Token [String=").append(token).append("]").append("[Expires").append(expiryDate).append("]");
+        builder.append("Token [String=")
+            .append(token)
+            .append("]")
+            .append("[Expires")
+            .append(expiryDate)
+            .append("]");
         return builder.toString();
     }
 

@@ -1,17 +1,18 @@
 package com.baeldung.lsd.persistence.repository;
 
-import com.baeldung.lsd.persistence.model.Project;
-import com.baeldung.lsd.persistence.model.Task;
-import com.baeldung.lsd.persistence.model.TaskStatus;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import com.baeldung.lsd.persistence.model.Project;
+import com.baeldung.lsd.persistence.model.Task;
+import com.baeldung.lsd.persistence.model.TaskStatus;
 
 @DataJpaTest
 class TaskRepositoryIntegrationTest {
@@ -45,7 +46,8 @@ class TaskRepositoryIntegrationTest {
         taskRepository.save(newTask);
 
         Optional<Task> retrievedTask = taskRepository.findById(newTask.getId());
-        assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class, retrievedTask.get().getId()));
+        assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class, retrievedTask.get()
+            .getId()));
     }
 
     @Test
