@@ -31,8 +31,9 @@ public class NonGreedyAlgorithm {
 
             long max = 0;
             for (; i > 0; i--) {
-                if (count[i - 1] > max)
+                if (count[i - 1] > max) {
                     max = count[i - 1];
+                }
             }
 
             return total + max;
