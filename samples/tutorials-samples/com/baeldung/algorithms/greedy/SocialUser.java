@@ -13,15 +13,11 @@ public class SocialUser {
     private List<SocialUser> followers;
 
     public SocialUser(String username) {
-        super();
-        this.username = username;
-        this.followers = new ArrayList<>();
+        super(); this.username = username; this.followers = new ArrayList<>();
     }
 
     public SocialUser(String username, List<SocialUser> followers) {
-        super();
-        this.username = username;
-        this.followers = followers;
+        super(); this.username = username; this.followers = followers;
     }
 
     public long getFollowersCount() {
@@ -35,7 +31,7 @@ public class SocialUser {
     @Override
     public boolean equals(Object obj) {
         return ((SocialUser) obj).getUsername()
-            .equals(username);
+                                 .equals(username);
     }
 
 }

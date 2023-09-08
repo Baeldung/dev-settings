@@ -6,8 +6,7 @@ public class BalancedBracketsUsingString {
         if (null == str || ((str.length() % 2) != 0)) {
             return false;
         } else {
-            char[] ch = str.toCharArray();
-            for (char c : ch) {
+            char[] ch = str.toCharArray(); for (char c : ch) {
                 if (!(c == '{' || c == '[' || c == '(' || c == '}' || c == ']' || c == ')')) {
                     return false;
                 }
@@ -17,10 +16,9 @@ public class BalancedBracketsUsingString {
 
         while (str.contains("()") || str.contains("[]") || str.contains("{}")) {
             str = str.replaceAll("\\(\\)", "")
-                .replaceAll("\\[\\]", "")
-                .replaceAll("\\{\\}", "");
-        }
-        return (str.length() == 0);
+                     .replaceAll("\\[\\]", "")
+                     .replaceAll("\\{\\}", "");
+        } return (str.length() == 0);
 
     }
 

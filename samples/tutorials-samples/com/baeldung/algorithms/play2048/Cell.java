@@ -8,8 +8,7 @@ public class Cell {
     private int y;
 
     public Cell(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
     }
 
     public int getX() {
@@ -23,7 +22,7 @@ public class Cell {
     @Override
     public String toString() {
         return new StringJoiner(", ", Cell.class.getSimpleName() + "[", "]").add("x=" + x)
-            .add("y=" + y)
-            .toString();
+                                                                            .add("y=" + y)
+                                                                            .toString();
     }
 }
