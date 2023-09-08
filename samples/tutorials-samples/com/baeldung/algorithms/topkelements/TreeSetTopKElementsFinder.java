@@ -13,7 +13,7 @@ public class TreeSetTopKElementsFinder implements TopKElementsFinder<Integer> {
         sortedSet.addAll(input);
 
         return sortedSet.stream()
-            .limit(k)
-            .collect(Collectors.toList());
+                        .limit(k)
+                        .collect(Collectors.toList());
     }
 }

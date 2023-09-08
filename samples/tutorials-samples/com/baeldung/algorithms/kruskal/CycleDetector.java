@@ -30,7 +30,7 @@ public class CycleDetector {
 
     private Integer find(Integer node) {
         Integer parent = nodes.get(node)
-            .getParentNode();
+                              .getParentNode();
         if (parent.equals(node)) {
             return node;
         } else {

@@ -31,7 +31,7 @@ public class SocialConnector {
                 counter--;
             for (SocialUser user : users) {
                 if (user.getUsername()
-                    .equals(account)) {
+                        .equals(account)) {
                     return user.getFollowers();
                 }
             }

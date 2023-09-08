@@ -28,25 +28,25 @@ public class Kruskal {
 
         if (minSpanningTree) {
             edgeList.sort(Comparator.comparing(e -> graph.edgeValue(e)
-                .get()));
+                                                         .get()));
         } else {
             edgeList.sort(Collections.reverseOrder(Comparator.comparing(e -> graph.edgeValue(e)
-                .get())));
+                                                                                  .get())));
         }
 
         int totalNodes = graph.nodes()
-            .size();
+                              .size();
         CycleDetector cycleDetector = new CycleDetector(totalNodes);
         int edgeCount = 0;
 
         MutableValueGraph<Integer, Double> spanningTree = ValueGraphBuilder.undirected()
-            .build();
+                                                                           .build();
         for (EndpointPair<Integer> edge : edgeList) {
             if (cycleDetector.detectCycle(edge.nodeU(), edge.nodeV())) {
                 continue;
             }
             spanningTree.putEdgeValue(edge.nodeU(), edge.nodeV(), graph.edgeValue(edge)
-                .get());
+                                                                       .get());
             edgeCount++;
             if (edgeCount == totalNodes - 1) {
                 break;

@@ -24,9 +24,7 @@ public class SocialUser {
         this.followers = followers;
     }
 
-    public long getFollowersCount() {
-        return followers.size();
-    }
+    public long getFollowersCount() { return followers.size(); }
 
     public void addFollowers(List<SocialUser> followers) {
         this.followers.addAll(followers);
@@ -35,7 +33,7 @@ public class SocialUser {
     @Override
     public boolean equals(Object obj) {
         return ((SocialUser) obj).getUsername()
-            .equals(username);
+                                 .equals(username);
     }
 
 }

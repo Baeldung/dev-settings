@@ -12,18 +12,14 @@ public class Cell {
         this.y = y;
     }
 
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
-    public int getY() {
-        return y;
-    }
+    public int getY() { return y; }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Cell.class.getSimpleName() + "[", "]").add("x=" + x)
-            .add("y=" + y)
-            .toString();
+                                                                            .add("y=" + y)
+                                                                            .toString();
     }
 }

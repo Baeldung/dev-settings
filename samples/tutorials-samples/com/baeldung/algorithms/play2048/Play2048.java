@@ -30,7 +30,7 @@ public class Play2048 {
             System.out.println("=============");
             printBoard(board);
         } while (!board.emptyCells()
-            .isEmpty());
+                       .isEmpty());
 
         System.out.println("Final Score: " + board.getScore());
 
