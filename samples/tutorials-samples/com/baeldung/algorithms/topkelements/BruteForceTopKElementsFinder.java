@@ -6,8 +6,7 @@ import java.util.List;
 public class BruteForceTopKElementsFinder implements TopKElementsFinder<Integer> {
 
     public List<Integer> findTopK(List<Integer> input, int k) {
-        List<Integer> array = new ArrayList<>(input);
-        List<Integer> topKList = new ArrayList<>();
+        List<Integer> array = new ArrayList<>(input); List<Integer> topKList = new ArrayList<>();
 
         for (int i = 0; i < k; i++) {
             int maxIndex = 0;

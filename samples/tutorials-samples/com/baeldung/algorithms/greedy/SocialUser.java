@@ -13,15 +13,11 @@ public class SocialUser {
     private List<SocialUser> followers;
 
     public SocialUser(String username) {
-        super();
-        this.username = username;
-        this.followers = new ArrayList<>();
+        super(); this.username = username; this.followers = new ArrayList<>();
     }
 
     public SocialUser(String username, List<SocialUser> followers) {
-        super();
-        this.username = username;
-        this.followers = followers;
+        super(); this.username = username; this.followers = followers;
     }
 
     public long getFollowersCount() {

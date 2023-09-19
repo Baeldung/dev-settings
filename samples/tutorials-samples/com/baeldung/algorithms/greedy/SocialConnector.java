@@ -19,23 +19,21 @@ public class SocialConnector {
     }
 
     public boolean switchCounter() {
-        this.isCounterEnabled = !this.isCounterEnabled;
-        return this.isCounterEnabled;
+        this.isCounterEnabled = !this.isCounterEnabled; return this.isCounterEnabled;
     }
 
     public List<SocialUser> getFollowers(String account) {
-        if (counter < 0)
+        if (counter < 0) {
             throw new IllegalStateException("API limit reached");
-        else {
-            if (this.isCounterEnabled)
+        } else {
+            if (this.isCounterEnabled) {
                 counter--;
-            for (SocialUser user : users) {
+            } for (SocialUser user : users) {
                 if (user.getUsername()
                     .equals(account)) {
                     return user.getFollowers();
                 }
             }
-        }
-        return new ArrayList<>();
+        } return new ArrayList<>();
     }
 }
