@@ -71,13 +71,9 @@ public class BoruvkaMST {
         }
     }
 
-    public MutableValueGraph<Integer, Integer> getMST() {
-        return mst;
-    }
+    public MutableValueGraph<Integer, Integer> getMST() { return mst; }
 
-    public int getTotalWeight() {
-        return totalWeight;
-    }
+    public int getTotalWeight() { return totalWeight; }
 
     public String toString() {
         return "MST: " + mst.toString() + " | Total Weight: " + totalWeight;

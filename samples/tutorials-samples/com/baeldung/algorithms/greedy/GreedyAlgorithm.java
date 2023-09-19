@@ -37,7 +37,5 @@ public class GreedyAlgorithm {
         }
     }
 
-    public FollowersPath getFollowers() {
-        return fp;
-    }
+    public FollowersPath getFollowers() { return fp; }
 }
