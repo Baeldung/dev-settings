@@ -24,10 +24,8 @@ public class TaskController {
 
     @GetMapping
     public Collection<TaskDto> findByProjectId(@RequestParam("projectId") Long id) {
-        Iterable<Task> tasks = taskService.findByProjectId(id);
-        Collection<TaskDto> taskDtos = new ArrayList<>();
-        tasks.forEach(p -> taskDtos.add(convertToDto(p)));
-        return taskDtos;
+        Iterable<Task> tasks = taskService.findByProjectId(id); Collection<TaskDto> taskDtos = new ArrayList<>();
+        tasks.forEach(p -> taskDtos.add(convertToDto(p))); return taskDtos;
     }
 
     protected TaskDto convertToDto(Task entity) {

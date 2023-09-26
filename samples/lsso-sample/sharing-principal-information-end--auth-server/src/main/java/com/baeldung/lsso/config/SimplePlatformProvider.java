@@ -19,8 +19,7 @@ public class SimplePlatformProvider implements PlatformProvider {
 
     @Override
     public void exit(Throwable cause) {
-        ServicesLogger.LOGGER.fatal(cause);
-        exit(1);
+        ServicesLogger.LOGGER.fatal(cause); exit(1);
     }
 
     private void exit(int status) {

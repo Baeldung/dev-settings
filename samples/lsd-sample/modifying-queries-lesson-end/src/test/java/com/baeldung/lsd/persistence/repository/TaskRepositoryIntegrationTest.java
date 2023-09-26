@@ -28,8 +28,7 @@ class TaskRepositoryIntegrationTest {
 
     @Test
     void givenNewTask_whenSaved_thenSuccess() {
-        Project testProject = new Project("TTEST-1", "Task Test Project 1", "Description for project TTEST-1");
-        projectRepository.save(testProject);
+        Project testProject = new Project("TTEST-1", "Task Test Project 1", "Description for project TTEST-1"); projectRepository.save(testProject);
         Task newTask = new Task("First Test Task", "First Test Task", LocalDate.now(), testProject);
 
         taskRepository.save(newTask);
@@ -39,28 +38,22 @@ class TaskRepositoryIntegrationTest {
 
     @Test
     void givenTaskCreated_whenFindById_thenSuccess() {
-        Project testProject = new Project("TTEST-2", "Task Test Project 1", "Description for project TTEST-2");
-        projectRepository.save(testProject);
+        Project testProject = new Project("TTEST-2", "Task Test Project 1", "Description for project TTEST-2"); projectRepository.save(testProject);
 
-        Task newTask = new Task("First Test Task", "First Test Task", LocalDate.now(), testProject);
-        taskRepository.save(newTask);
+        Task newTask = new Task("First Test Task", "First Test Task", LocalDate.now(), testProject); taskRepository.save(newTask);
 
-        Optional<Task> retrievedTask = taskRepository.findById(newTask.getId());
-        assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class, retrievedTask.get()
-            .getId()));
+        Optional<Task> retrievedTask = taskRepository.findById(newTask.getId()); assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class,
+            retrievedTask.get()
+                .getId()));
     }
 
     @Test
     void givenTaskCompleted_whenDeleteCompletedTasks_thenSuccess() {
-        Project testProject = new Project("TTEST-2", "Task Test Project 1", "Description for project TTEST-2");
-        projectRepository.save(testProject);
+        Project testProject = new Project("TTEST-2", "Task Test Project 1", "Description for project TTEST-2"); projectRepository.save(testProject);
 
-        Task newTask = new Task("First Test Task", "First Test Task", LocalDate.now(), testProject);
-        newTask.setStatus(TaskStatus.DONE);
-        taskRepository.save(newTask);
-        taskRepository.deleteCompletedTasks();
+        Task newTask = new Task("First Test Task", "First Test Task", LocalDate.now(), testProject); newTask.setStatus(TaskStatus.DONE);
+        taskRepository.save(newTask); taskRepository.deleteCompletedTasks();
 
-        Optional<Task> retrievedTask = taskRepository.findById(newTask.getId());
-        assertThat(retrievedTask.isPresent()).isEqualTo(false);
+        Optional<Task> retrievedTask = taskRepository.findById(newTask.getId()); assertThat(retrievedTask.isPresent()).isEqualTo(false);
     }
 }

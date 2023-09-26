@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import com.baeldung.common.web.exception.*;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -32,21 +33,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     // 400
 
     @Override
-    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        logger.info("Bad Request: " + ex.getMessage());
-        logger.debug("Bad Request: ", ex);
+    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers,
+        final HttpStatus status, final WebRequest request) {
+        logger.info("Bad Request: " + ex.getMessage()); logger.debug("Bad Request: ", ex);
 
-        final ApiError apiError = message(HttpStatus.BAD_REQUEST, ex);
-        return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
+        final ApiError apiError = message(HttpStatus.BAD_REQUEST, ex); return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
-    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        logger.info("Bad Request: " + ex.getMessage());
-        logger.debug("Bad Request: ", ex);
+    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers,
+        final HttpStatus status, final WebRequest request) {
+        logger.info("Bad Request: " + ex.getMessage()); logger.debug("Bad Request: ", ex);
 
-        final BindingResult result = ex.getBindingResult();
-        final List<FieldError> fieldErrors = result.getFieldErrors();
+        final BindingResult result = ex.getBindingResult(); final List<FieldError> fieldErrors = result.getFieldErrors();
         final ValidationErrorDTO dto = processFieldErrors(fieldErrors);
 
         return handleExceptionInternal(ex, dto, headers, HttpStatus.BAD_REQUEST, request);
@@ -54,8 +53,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(value = { ConstraintViolationException.class, DataIntegrityViolationException.class, MyBadRequestException.class })
     protected final ResponseEntity<Object> handleBadRequest(final RuntimeException ex, final WebRequest request) {
-        logger.info("Bad Request: " + ex.getLocalizedMessage());
-        logger.debug("Bad Request: ", ex);
+        logger.info("Bad Request: " + ex.getLocalizedMessage()); logger.debug("Bad Request: ", ex);
 
         final ApiError apiError = message(HttpStatus.BAD_REQUEST, ex);
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
@@ -119,8 +117,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         final ValidationErrorDTO dto = new ValidationErrorDTO();
 
         for (final FieldError fieldError : fieldErrors) {
-            final String localizedErrorMessage = fieldError.getDefaultMessage();
-            dto.addFieldError(fieldError.getField(), localizedErrorMessage);
+            final String localizedErrorMessage = fieldError.getDefaultMessage(); dto.addFieldError(fieldError.getField(), localizedErrorMessage);
         }
 
         return dto;
@@ -128,8 +125,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     private ApiError message(final HttpStatus httpStatus, final Exception ex) {
         final String message = ex.getMessage() == null ? ex.getClass()
-            .getSimpleName() : ex.getMessage();
-        final String devMessage = ex.getClass()
+            .getSimpleName() : ex.getMessage(); final String devMessage = ex.getClass()
             .getSimpleName();
         // devMessage = ExceptionUtils.getStackTrace(ex);
 

@@ -28,8 +28,7 @@ public class ProjectServiceImpl implements IProjectService {
     public Project save(Project project) {
         if (StringUtils.isEmpty(project.getId())) {
             project.setDateCreated(LocalDate.now());
-        }
-        return projectRepository.save(project);
+        } return projectRepository.save(project);
     }
 
     @Override

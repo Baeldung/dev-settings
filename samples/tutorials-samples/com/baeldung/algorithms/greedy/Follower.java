@@ -10,9 +10,7 @@ public class Follower {
     long count;
 
     public Follower(String username, long count) {
-        super();
-        this.username = username;
-        this.count = count;
+        super(); this.username = username; this.count = count;
     }
 
     @Override

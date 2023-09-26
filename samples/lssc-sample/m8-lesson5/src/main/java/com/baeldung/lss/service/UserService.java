@@ -29,9 +29,7 @@ class UserService implements IUserService {
     public User registerNewUser(final User user) throws EmailExistsException {
         if (emailExist(user.getEmail())) {
             throw new EmailExistsException("There is an account with that email address: " + user.getEmail());
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        } user.setPassword(passwordEncoder.encode(user.getPassword())); return userRepository.save(user);
     }
 
     @Override
@@ -41,8 +39,7 @@ class UserService implements IUserService {
 
     @Override
     public void createPasswordResetTokenForUser(final User user, final String token) {
-        final PasswordResetToken myToken = new PasswordResetToken(token, user);
-        passwordTokenRepository.save(myToken);
+        final PasswordResetToken myToken = new PasswordResetToken(token, user); passwordTokenRepository.save(myToken);
     }
 
     @Override
@@ -56,22 +53,17 @@ class UserService implements IUserService {
     }
 
     private boolean emailExist(final String email) {
-        final User user = userRepository.findByEmail(email);
-        return user != null;
+        final User user = userRepository.findByEmail(email); return user != null;
     }
 
     @Override
     public User updateExistingUser(User user) throws EmailExistsException {
-        final Long id = user.getId();
-        final String email = user.getEmail();
-        final User emailOwner = userRepository.findByEmail(email);
+        final Long id = user.getId(); final String email = user.getEmail(); final User emailOwner = userRepository.findByEmail(email);
         if (emailOwner != null && !id.equals(emailOwner.getId())) {
             throw new EmailExistsException("Email not available.");
-        }
-        if (user.getPassword() != null) {
+        } if (user.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        return userRepository.save(user);
+        } return userRepository.save(user);
     }
 
 }

@@ -28,8 +28,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void givenUserCreated_whenFindById_thenSuccess() {
-        User newUser = new User("johnTest2@test.com", "John", "Doe");
-        userRepository.save(newUser);
+        User newUser = new User("johnTest2@test.com", "John", "Doe"); userRepository.save(newUser);
 
         Optional<User> retrievedUser = userRepository.findById(newUser.getId());
         assertThat(retrievedUser.get()).isEqualTo(entityManager.find(User.class, newUser.getId()));

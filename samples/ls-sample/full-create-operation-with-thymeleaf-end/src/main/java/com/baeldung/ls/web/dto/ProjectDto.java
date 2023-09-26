@@ -18,10 +18,7 @@ public class ProjectDto {
     }
 
     public ProjectDto(Long id, String name, LocalDate dateCreated) {
-        this.id = id;
-        this.name = name;
-        this.dateCreated = dateCreated;
-        tasks = new HashSet<>();
+        this.id = id; this.name = name; this.dateCreated = dateCreated; tasks = new HashSet<>();
     }
 
     public Long getId() {

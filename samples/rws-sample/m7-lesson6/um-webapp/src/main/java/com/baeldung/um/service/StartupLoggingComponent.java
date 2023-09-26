@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 
 @Component
 public class StartupLoggingComponent implements InitializingBean {
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String ENV_TARGET_KEY = "envTarget";
@@ -30,10 +31,8 @@ public class StartupLoggingComponent implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        logger.info("============================================================================");
-        try {
-            logEnvTarget(env);
-            logPersistenceTarget(env);
+        logger.info("============================================================================"); try {
+            logEnvTarget(env); logPersistenceTarget(env);
 
             logPersistenceData(env);
         } catch (final Exception ex) {
@@ -62,11 +61,10 @@ public class StartupLoggingComponent implements InitializingBean {
 
     //
 
-    private final String getValueOfProperty(final Environment environment, final String propertyKey, final String propertyDefaultValue, final List<String> acceptablePropertyValues) {
-        String propValue = environment.getProperty(propertyKey);
-        if (propValue == null) {
-            propValue = propertyDefaultValue;
-            logger.info("The {} doesn't have an explicit value; default value is = {}", propertyKey, propertyDefaultValue);
+    private final String getValueOfProperty(final Environment environment, final String propertyKey, final String propertyDefaultValue,
+        final List<String> acceptablePropertyValues) {
+        String propValue = environment.getProperty(propertyKey); if (propValue == null) {
+            propValue = propertyDefaultValue; logger.info("The {} doesn't have an explicit value; default value is = {}", propertyKey, propertyDefaultValue);
         }
 
         if (acceptablePropertyValues != null) {

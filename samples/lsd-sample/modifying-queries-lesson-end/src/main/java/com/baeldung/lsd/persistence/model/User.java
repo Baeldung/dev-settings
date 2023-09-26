@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +23,7 @@ public class User {
     private String lastName;
 
     public User(String email, String firstName, String lastName) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.email = email; this.firstName = firstName; this.lastName = lastName;
     }
 
     public User() {
@@ -69,19 +68,19 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        } if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        } if (getClass() != obj.getClass()) {
             return false;
-        User other = (User) obj;
-        if (email == null) {
-            if (other.email != null)
+        } User other = (User) obj; if (email == null) {
+            if (other.email != null) {
                 return false;
-        } else if (!email.equals(other.email))
+            }
+        } else if (!email.equals(other.email)) {
             return false;
-        return true;
+        } return true;
     }
 
     @Override

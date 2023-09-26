@@ -65,10 +65,7 @@ public class LssSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @PostConstruct
     private void saveTestUser() {
-        final User user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword(passwordEncoder().encode("pass"));
-        userRepository.save(user);
+        final User user = new User(); user.setEmail("test@email.com"); user.setPassword(passwordEncoder().encode("pass")); userRepository.save(user);
     }
 
     @Bean

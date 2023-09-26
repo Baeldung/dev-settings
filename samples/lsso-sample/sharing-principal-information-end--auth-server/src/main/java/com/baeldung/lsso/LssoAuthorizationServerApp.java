@@ -24,12 +24,12 @@ public class LssoAuthorizationServerApp {
     }
 
     @Bean
-    ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties, KeycloakServerProperties keycloakServerProperties) {
+    ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties,
+        KeycloakServerProperties keycloakServerProperties) {
 
         return (evt) -> {
 
-            Integer port = serverProperties.getPort();
-            String keycloakContextPath = keycloakServerProperties.getContextPath();
+            Integer port = serverProperties.getPort(); String keycloakContextPath = keycloakServerProperties.getContextPath();
 
             LOG.info("Embedded Keycloak started: http://localhost:{}{} to use keycloak", port, keycloakContextPath);
         };

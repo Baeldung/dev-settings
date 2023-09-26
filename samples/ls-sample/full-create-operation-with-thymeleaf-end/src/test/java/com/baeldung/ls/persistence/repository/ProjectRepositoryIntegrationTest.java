@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import com.baeldung.ls.persistence.model.Project;
 
 @SpringBootTest
@@ -18,16 +19,13 @@ public class ProjectRepositoryIntegrationTest {
 
     @Test
     public void whenSavingNewProject_thenSuccess() {
-        Project newProject = new Project("First Project", LocalDate.now());
-        assertThat(projectRepository.save(newProject)).isNotNull();
+        Project newProject = new Project("First Project", LocalDate.now()); assertThat(projectRepository.save(newProject)).isNotNull();
     }
 
     @Test
     public void givenProject_whenFindById_thenSuccess() {
-        Project newProject = new Project("First Project", LocalDate.now());
-        projectRepository.save(newProject);
+        Project newProject = new Project("First Project", LocalDate.now()); projectRepository.save(newProject);
 
-        Optional<Project> retreivedProject = projectRepository.findById(newProject.getId());
-        assertThat(retreivedProject.get()).isEqualTo(newProject);
+        Optional<Project> retreivedProject = projectRepository.findById(newProject.getId()); assertThat(retreivedProject.get()).isEqualTo(newProject);
     }
 }

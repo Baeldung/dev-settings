@@ -6,8 +6,7 @@ public class DisjointSetInfo {
     private int rank;
 
     DisjointSetInfo(Integer nodeNumber) {
-        setParentNode(nodeNumber);
-        setRank(1);
+        setParentNode(nodeNumber); setRank(1);
     }
 
     public Integer getParentNode() {

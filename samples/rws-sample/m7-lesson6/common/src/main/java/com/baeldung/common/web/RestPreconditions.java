@@ -47,8 +47,7 @@ public final class RestPreconditions {
     public static <T> T checkNotNull(final T reference, final String message) {
         if (reference == null) {
             throw new MyResourceNotFoundException(message);
-        }
-        return reference;
+        } return reference;
     }
 
     /**
@@ -81,8 +80,7 @@ public final class RestPreconditions {
     public static <T> T checkRequestElementNotNull(final T reference, final String message) {
         if (reference == null) {
             throw new MyBadRequestException(message);
-        }
-        return reference;
+        } return reference;
     }
 
     /**

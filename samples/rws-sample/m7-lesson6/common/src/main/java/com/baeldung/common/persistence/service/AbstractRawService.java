@@ -3,6 +3,7 @@ package com.baeldung.common.persistence.service;
 import com.baeldung.common.persistence.exception.MyEntityNotFoundException;
 import com.baeldung.common.persistence.model.IEntity;
 import com.google.common.collect.Lists;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 @Transactional
 public abstract class AbstractRawService<T extends IEntity> implements IRawService<T> {
+
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -51,20 +53,16 @@ public abstract class AbstractRawService<T extends IEntity> implements IRawServi
     @Override
     @Transactional(readOnly = true)
     public Page<T> findAllPaginatedAndSortedRaw(final int page, final int size, final String sortBy, final String sortOrder) {
-        final Sort sortInfo = constructSort(sortBy, sortOrder);
-        return getDao().findAll(PageRequest.of(page, size, sortInfo));
+        final Sort sortInfo = constructSort(sortBy, sortOrder); return getDao().findAll(PageRequest.of(page, size, sortInfo));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<T> findAllPaginatedAndSorted(final int page, final int size, final String sortBy, final String sortOrder) {
-        final Sort sortInfo = constructSort(sortBy, sortOrder);
-        final List<T> content = getDao().findAll(PageRequest.of(page, size, sortInfo))
-            .getContent();
-        if (content == null) {
+        final Sort sortInfo = constructSort(sortBy, sortOrder); final List<T> content = getDao().findAll(PageRequest.of(page, size, sortInfo))
+            .getContent(); if (content == null) {
             return Lists.newArrayList();
-        }
-        return content;
+        } return content;
     }
 
     @Override
@@ -77,18 +75,15 @@ public abstract class AbstractRawService<T extends IEntity> implements IRawServi
     @Transactional(readOnly = true)
     public List<T> findAllPaginated(final int page, final int size) {
         final List<T> content = getDao().findAll(PageRequest.of(page, size, null))
-            .getContent();
-        if (content == null) {
+            .getContent(); if (content == null) {
             return Lists.newArrayList();
-        }
-        return content;
+        } return content;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<T> findAllSorted(final String sortBy, final String sortOrder) {
-        final Sort sortInfo = constructSort(sortBy, sortOrder);
-        return Lists.newArrayList(getDao().findAll(sortInfo));
+        final Sort sortInfo = constructSort(sortBy, sortOrder); return Lists.newArrayList(getDao().findAll(sortInfo));
     }
 
     // save/create/persist
@@ -120,7 +115,8 @@ public abstract class AbstractRawService<T extends IEntity> implements IRawServi
 
     @Override
     public void delete(final long id) {
-        final T entity = getDao().findById(id).orElseThrow(MyEntityNotFoundException::new);
+        final T entity = getDao().findById(id)
+            .orElseThrow(MyEntityNotFoundException::new);
 
         getDao().delete(entity);
     }
@@ -141,11 +137,9 @@ public abstract class AbstractRawService<T extends IEntity> implements IRawServi
     // template
 
     protected final Sort constructSort(final String sortBy, final String sortOrder) {
-        Sort sortInfo = Sort.unsorted();
-        if (sortBy != null) {
+        Sort sortInfo = Sort.unsorted(); if (sortBy != null) {
             sortInfo = Sort.by(Direction.fromString(sortOrder), sortBy);
-        }
-        return sortInfo;
+        } return sortInfo;
     }
 
 }

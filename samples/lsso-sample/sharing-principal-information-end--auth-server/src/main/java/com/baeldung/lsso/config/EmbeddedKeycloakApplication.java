@@ -24,8 +24,7 @@ public class EmbeddedKeycloakApplication extends KeycloakApplication {
     static KeycloakServerProperties keycloakServerProperties;
 
     protected void loadConfig() {
-        JsonConfigProviderFactory factory = new RegularJsonConfigProviderFactory();
-        Config.init(factory.create()
+        JsonConfigProviderFactory factory = new RegularJsonConfigProviderFactory(); Config.init(factory.create()
             .orElseThrow(() -> new NoSuchElementException("No value present")));
     }
 
@@ -48,13 +47,10 @@ public class EmbeddedKeycloakApplication extends KeycloakApplication {
 
         try {
             session.getTransactionManager()
-                .begin();
-            applianceBootstrap.createMasterRealmUser(admin.getUsername(), admin.getPassword());
-            session.getTransactionManager()
+                .begin(); applianceBootstrap.createMasterRealmUser(admin.getUsername(), admin.getPassword()); session.getTransactionManager()
                 .commit();
         } catch (Exception ex) {
-            LOG.warn("Couldn't create keycloak master admin user: {}", ex.getMessage());
-            session.getTransactionManager()
+            LOG.warn("Couldn't create keycloak master admin user: {}", ex.getMessage()); session.getTransactionManager()
                 .rollback();
         }
 
@@ -76,8 +72,7 @@ public class EmbeddedKeycloakApplication extends KeycloakApplication {
             session.getTransactionManager()
                 .commit();
         } catch (Exception ex) {
-            LOG.warn("Failed to import Realm json file: {}", ex.getMessage());
-            session.getTransactionManager()
+            LOG.warn("Failed to import Realm json file: {}", ex.getMessage()); session.getTransactionManager()
                 .rollback();
         }
 

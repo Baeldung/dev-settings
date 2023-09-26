@@ -17,12 +17,10 @@ public class CustomAuthenticationDetailsSource implements AuthenticationDetailsS
 
     @Override
     public GrantedAuthoritiesContainer buildDetails(HttpServletRequest context) {
-        Enumeration<String> headerValues = context.getHeaders("BAEL-authorities");
-        Collection<GrantedAuthority> authorities = Collections.list(headerValues)
+        Enumeration<String> headerValues = context.getHeaders("BAEL-authorities"); Collection<GrantedAuthority> authorities = Collections.list(headerValues)
             .stream()
             .map(value -> new SimpleGrantedAuthority(value))
-            .collect(Collectors.toList());
-        return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, authorities);
+            .collect(Collectors.toList()); return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, authorities);
     }
 
 }

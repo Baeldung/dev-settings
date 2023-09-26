@@ -17,19 +17,16 @@ public class TaskResourceSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AbstractPreAuthenticatedProcessingFilter preAuthFilter() throws Exception {
-        RequestHeaderAuthenticationFilter preAuthFilter = new RequestHeaderAuthenticationFilter();
-        preAuthFilter.setPrincipalRequestHeader("BAEL-username");
+        RequestHeaderAuthenticationFilter preAuthFilter = new RequestHeaderAuthenticationFilter(); preAuthFilter.setPrincipalRequestHeader("BAEL-username");
         preAuthFilter.setAuthenticationManager(authenticationManager());
         TaskResourceCustomAuthenticationDetailsSource authDetailsSource = new TaskResourceCustomAuthenticationDetailsSource();
-        preAuthFilter.setAuthenticationDetailsSource(authDetailsSource);
-        return preAuthFilter;
+        preAuthFilter.setAuthenticationDetailsSource(authDetailsSource); return preAuthFilter;
     }
 
     @Bean
     public AuthenticationProvider preAuthAuthenticationProvider() {
         PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
-        provider.setPreAuthenticatedUserDetailsService(new PreAuthenticatedGrantedAuthoritiesUserDetailsService());
-        return provider;
+        provider.setPreAuthenticatedUserDetailsService(new PreAuthenticatedGrantedAuthoritiesUserDetailsService()); return provider;
     }
 
     @Override

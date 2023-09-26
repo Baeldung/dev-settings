@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.baeldung.ls.persistence.model.TaskStatus;
 
 public class TaskDto {
+
     private Long id;
 
     private String name;
@@ -25,12 +26,7 @@ public class TaskDto {
     }
 
     public TaskDto(Long id, String name, String description, LocalDate dateCreated, LocalDate dueDate, TaskStatus status) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.dateCreated = dateCreated;
-        this.dueDate = dueDate;
-        this.status = status;
+        this.id = id; this.name = name; this.description = description; this.dateCreated = dateCreated; this.dueDate = dueDate; this.status = status;
     }
 
     public Long getId() {

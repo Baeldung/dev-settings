@@ -40,8 +40,7 @@ public class Lss5IntegrationTest {
     @Test
     public void testUserLoginSuccess() throws Exception {
         ResultActions resultActions = mockMvc.perform(formLogin("/doLogin").user("test@email.com")
-            .password("pass"));
-        resultActions.andExpect(authenticated());
+            .password("pass")); resultActions.andExpect(authenticated());
     }
 
     @Test

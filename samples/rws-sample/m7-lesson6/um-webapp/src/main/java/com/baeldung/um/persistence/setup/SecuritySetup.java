@@ -30,6 +30,7 @@ import com.google.common.collect.Sets;
 @Component
 @Profile(Profiles.DEPLOYED)
 public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent> {
+
     private final Logger logger = LoggerFactory.getLogger(SecuritySetup.class);
 
     private boolean setupDone;
@@ -59,33 +60,25 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         if (!setupDone) {
             logger.info("Executing Setup");
 
-            createPrivileges();
-            createRoles();
-            createUsers();
+            createPrivileges(); createRoles(); createUsers();
 
-            setupDone = true;
-            logger.info("Setup Done");
+            setupDone = true; logger.info("Setup Done");
         }
     }
 
     // Privilege
 
     private void createPrivileges() {
-        createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_WRITE);
+        createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_READ); createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_WRITE);
 
-        createPrivilegeIfNotExisting(Privileges.CAN_ROLE_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_ROLE_WRITE);
+        createPrivilegeIfNotExisting(Privileges.CAN_ROLE_READ); createPrivilegeIfNotExisting(Privileges.CAN_ROLE_WRITE);
 
-        createPrivilegeIfNotExisting(Privileges.CAN_USER_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_USER_WRITE);
+        createPrivilegeIfNotExisting(Privileges.CAN_USER_READ); createPrivilegeIfNotExisting(Privileges.CAN_USER_WRITE);
     }
 
     final void createPrivilegeIfNotExisting(final String name) {
-        final Privilege entityByName = privilegeService.findByName(name);
-        if (entityByName == null) {
-            final Privilege entity = new Privilege(name);
-            privilegeService.create(entity);
+        final Privilege entityByName = privilegeService.findByName(name); if (entityByName == null) {
+            final Privilege entity = new Privilege(name); privilegeService.create(entity);
         }
     }
 
@@ -99,22 +92,17 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         final Privilege canUserRead = privilegeService.findByName(Privileges.CAN_USER_READ);
         final Privilege canUserWrite = privilegeService.findByName(Privileges.CAN_USER_WRITE);
 
-        Objects.requireNonNull(canPrivilegeRead, "canPrivilegeRead is null");
-        Objects.requireNonNull(canPrivilegeWrite, "canPrivilegeWrite is null");
-        Objects.requireNonNull(canRoleRead, "canRoleRead is null");
-        Objects.requireNonNull(canRoleWrite, "canRoleWrite is null");
-        Objects.requireNonNull(canUserRead, "canUserRead is null");
-        Objects.requireNonNull(canUserWrite, "canUserWrite is null");
+        Objects.requireNonNull(canPrivilegeRead, "canPrivilegeRead is null"); Objects.requireNonNull(canPrivilegeWrite, "canPrivilegeWrite is null");
+        Objects.requireNonNull(canRoleRead, "canRoleRead is null"); Objects.requireNonNull(canRoleWrite, "canRoleWrite is null");
+        Objects.requireNonNull(canUserRead, "canUserRead is null"); Objects.requireNonNull(canUserWrite, "canUserWrite is null");
 
-        createRoleIfNotExisting(Roles.ROLE_ADMIN, Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
+        createRoleIfNotExisting(Roles.ROLE_ADMIN,
+            Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
     }
 
     final void createRoleIfNotExisting(final String name, final Set<Privilege> privileges) {
-        final Role entityByName = roleService.findByName(name);
-        if (entityByName == null) {
-            final Role entity = new Role(name);
-            entity.setPrivileges(privileges);
-            roleService.create(entity);
+        final Role entityByName = roleService.findByName(name); if (entityByName == null) {
+            final Role entity = new Role(name); entity.setPrivileges(privileges); roleService.create(entity);
         }
     }
 
@@ -128,10 +116,8 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     }
 
     final void createUserIfNotExisting(final String loginName, final String pass, final Set<Role> roles) {
-        final User entityByName = userService.findByName(loginName);
-        if (entityByName == null) {
-            final User entity = new User(loginName, pass, roles);
-            userService.create(entity);
+        final User entityByName = userService.findByName(loginName); if (entityByName == null) {
+            final User entity = new User(loginName, pass, roles); userService.create(entity);
         }
     }
 

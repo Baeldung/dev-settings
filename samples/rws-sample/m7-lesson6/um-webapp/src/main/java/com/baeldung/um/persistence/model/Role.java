@@ -39,14 +39,11 @@ public class Role implements INameableEntity, INameableDto {
     }
 
     public Role(final String nameToSet) {
-        super();
-        name = nameToSet;
+        super(); name = nameToSet;
     }
 
     public Role(final String nameToSet, final Set<Privilege> privilegesToSet) {
-        super();
-        name = nameToSet;
-        privileges = privilegesToSet;
+        super(); name = nameToSet; privileges = privilegesToSet;
     }
 
     // API
@@ -82,25 +79,22 @@ public class Role implements INameableEntity, INameableDto {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        final int prime = 31; int result = 1; result = prime * result + ((name == null) ? 0 : name.hashCode()); return result;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        } if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        } if (getClass() != obj.getClass()) {
             return false;
-        final Role other = (Role) obj;
-        if (name == null) {
+        } final Role other = (Role) obj; if (name == null) {
             return other.name == null;
-        } else
+        } else {
             return name.equals(other.name);
+        }
     }
 
     @Override

@@ -35,21 +35,16 @@ public class ModifyingQueriesApp implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        int deletedRecords = taskRepository.deleteCompletedTasks();
-        LOG.info("Number of Records Deleted :\n {}", deletedRecords);
+        int deletedRecords = taskRepository.deleteCompletedTasks(); LOG.info("Number of Records Deleted :\n {}", deletedRecords);
 
         userRepository.addActiveColumn();
 
-        Optional<Task> taskOptional = taskRepository.findById(1L);
-        if (taskOptional.isPresent()) {
-            Task task = taskOptional.get();
-            task.setStatus(TaskStatus.DONE);
+        Optional<Task> taskOptional = taskRepository.findById(1L); if (taskOptional.isPresent()) {
+            Task task = taskOptional.get(); task.setStatus(TaskStatus.DONE);
 
-            int deletedCompletedRecords = taskRepository.deleteCompletedTasks();
-            LOG.info("Number of Records Deleted :\n {}", deletedCompletedRecords);
+            int deletedCompletedRecords = taskRepository.deleteCompletedTasks(); LOG.info("Number of Records Deleted :\n {}", deletedCompletedRecords);
 
-            Optional<Task> taskCompleted = taskRepository.findById(1L);
-            LOG.info("Completed Task :\n {}", taskCompleted);
+            Optional<Task> taskCompleted = taskRepository.findById(1L); LOG.info("Completed Task :\n {}", taskCompleted);
         }
 
     }

@@ -80,18 +80,15 @@ public class Oauth2ClientIntegrationTest {
 
     @AfterEach
     public void tearDown() throws Exception {
-        authServer.shutdown();
-        gatewayServer.shutdown();
+        authServer.shutdown(); gatewayServer.shutdown();
     }
 
     private void createGatewayServer() throws IOException {
-        gatewayServer = new MockWebServer();
-        gatewayServer.start(8084);
+        gatewayServer = new MockWebServer(); gatewayServer.start(8084);
     }
 
     private void createAuthServer() throws IOException {
-        authServer = new MockWebServer();
-        authServer.start(8083);
+        authServer = new MockWebServer(); authServer.start(8083);
     }
 
     @Test
@@ -109,8 +106,7 @@ public class Oauth2ClientIntegrationTest {
         // redirects to 'custom' OAuth authorization endpoint
         String cookieSession = result.getResponseCookies()
             .getFirst("JSESSIONID")
-            .getValue();
-        String redirectTarget = result.getResponseHeaders()
+            .getValue(); String redirectTarget = result.getResponseHeaders()
             .getFirst(HttpHeaders.LOCATION);
 
         result = this.webTestClient.get()
@@ -150,8 +146,7 @@ public class Oauth2ClientIntegrationTest {
             .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
 
         // send request to redirect_uri with code and state
-        String code = "123";
-        result = this.webTestClient.get()
+        String code = "123"; result = this.webTestClient.get()
             .uri(String.format(REDIRECT_URI, state, code))
             .cookie("JSESSIONID", cookieSession)
             .exchange()
@@ -162,23 +157,17 @@ public class Oauth2ClientIntegrationTest {
             .returnResult(Void.class);
 
         // assert that Access Token Endpoint was requested as expected
-        RecordedRequest capturedTokenRequest = authServer.takeRequest();
-        assertThat(capturedTokenRequest.getMethod()).isEqualTo(HttpMethod.POST.name());
-        String tokenEndpointPath = new URI(configuredTokenUri).getPath();
-        assertThat(capturedTokenRequest.getPath()).isEqualTo(tokenEndpointPath);
+        RecordedRequest capturedTokenRequest = authServer.takeRequest(); assertThat(capturedTokenRequest.getMethod()).isEqualTo(HttpMethod.POST.name());
+        String tokenEndpointPath = new URI(configuredTokenUri).getPath(); assertThat(capturedTokenRequest.getPath()).isEqualTo(tokenEndpointPath);
         String requestBody = URLDecoder.decode(capturedTokenRequest.getBody()
-            .readUtf8(), StandardCharsets.UTF_8.name());
-        Map<String, String> mappedBody = Arrays.stream(requestBody.split("&"))
+            .readUtf8(), StandardCharsets.UTF_8.name()); Map<String, String> mappedBody = Arrays.stream(requestBody.split("&"))
             .collect(Collectors.toMap(param -> param.split("=")[0], param -> param.split("=")[1]));
-        assertThat(mappedBody).containsEntry("grant_type", "authorization_code");
-        assertThat(mappedBody).containsEntry("code", code);
+        assertThat(mappedBody).containsEntry("grant_type", "authorization_code"); assertThat(mappedBody).containsEntry("code", code);
         assertThat(mappedBody).containsEntry("redirect_uri", configuredRedirectUri);
 
         // assert UserInfo request
-        RecordedRequest capturedUserInfoRequest = authServer.takeRequest();
-        assertThat(capturedUserInfoRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
-        String userInfoPath = new URI(configuredUserInfoUri).getPath();
-        assertThat(capturedUserInfoRequest.getPath()).isEqualTo(userInfoPath);
+        RecordedRequest capturedUserInfoRequest = authServer.takeRequest(); assertThat(capturedUserInfoRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
+        String userInfoPath = new URI(configuredUserInfoUri).getPath(); assertThat(capturedUserInfoRequest.getPath()).isEqualTo(userInfoPath);
         assertThat(capturedUserInfoRequest.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("Bearer " + accessToken);
 
         String mockedProjectResources = "[{\"id\":1,\"name\":\"Project 1\",\"dateCreated\":\"2019-06-13\"},{\"id\":2,\"name\":\"Project 2\",\"dateCreated\":\"2019-06-14\"},{\"id\":3,\"name\":\"Project 3\",\"dateCreated\":\"2019-06-15\"}]";
@@ -200,17 +189,14 @@ public class Oauth2ClientIntegrationTest {
             .isOk()
             .expectBody()
             .consumeWith(response -> {
-                String bodyAsString = new String(response.getResponseBodyContent());
-                assertThat(bodyAsString).contains("Project 1")
+                String bodyAsString = new String(response.getResponseBodyContent()); assertThat(bodyAsString).contains("Project 1")
                     .contains("Project 2")
                     .contains("Project 3")
                     .doesNotContain("Project 4");
             });
 
-        RecordedRequest capturedProjectRequest = gatewayServer.takeRequest();
-        assertThat(capturedProjectRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
-        String projectsPath = new URI(gatewayBaseUrl + "projects/").getPath();
-        assertThat(capturedProjectRequest.getPath()).isEqualTo(projectsPath);
+        RecordedRequest capturedProjectRequest = gatewayServer.takeRequest(); assertThat(capturedProjectRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
+        String projectsPath = new URI(gatewayBaseUrl + "projects/").getPath(); assertThat(capturedProjectRequest.getPath()).isEqualTo(projectsPath);
         assertThat(capturedProjectRequest.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("Bearer " + accessToken);
 
         // we can also validate creating a new Project
@@ -244,8 +230,7 @@ public class Oauth2ClientIntegrationTest {
 
         RecordedRequest capturedAddProjectRequest = gatewayServer.takeRequest();
         assertThat(capturedAddProjectRequest.getMethod()).isEqualTo(HttpMethod.POST.name());
-        String addProjectsPath = new URI(gatewayBaseUrl + "projects/").getPath();
-        assertThat(capturedAddProjectRequest.getPath()).isEqualTo(addProjectsPath);
+        String addProjectsPath = new URI(gatewayBaseUrl + "projects/").getPath(); assertThat(capturedAddProjectRequest.getPath()).isEqualTo(addProjectsPath);
         assertThat(capturedAddProjectRequest.getBody()
             .readUtf8()).contains("newProjectName");
         assertThat(capturedAddProjectRequest.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("Bearer " + accessToken);
@@ -266,13 +251,11 @@ public class Oauth2ClientIntegrationTest {
             .isOk()
             .expectBody()
             .consumeWith(response -> {
-                String bodyAsString = new String(response.getResponseBodyContent());
-                assertThat(bodyAsString).contains("Task 1")
+                String bodyAsString = new String(response.getResponseBodyContent()); assertThat(bodyAsString).contains("Task 1")
                     .doesNotContain("Task 2");
             });
 
-        RecordedRequest capturedTasksRequest = gatewayServer.takeRequest();
-        assertThat(capturedTasksRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
+        RecordedRequest capturedTasksRequest = gatewayServer.takeRequest(); assertThat(capturedTasksRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
         URI tasksPath = new URI(gatewayBaseUrl + "tasks/" + tasksQueryParamsSection);
         assertThat(capturedTasksRequest.getPath()).isEqualTo(tasksPath.getPath() + "?" + tasksPath.getQuery());
         assertThat(capturedTasksRequest.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("Bearer " + accessToken);

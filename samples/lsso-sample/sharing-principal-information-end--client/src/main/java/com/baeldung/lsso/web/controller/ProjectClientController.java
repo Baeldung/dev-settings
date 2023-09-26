@@ -31,15 +31,12 @@ public class ProjectClientController {
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<List<ProjectModel>>() {
             })
-            .block();
-        model.addAttribute("projects", projects);
-        return "projects";
+            .block(); model.addAttribute("projects", projects); return "projects";
     }
 
     @GetMapping("/addproject")
     public String addNewProject(Model model) {
-        model.addAttribute("project", new ProjectModel(0L, "", LocalDate.now()));
-        return "addproject";
+        model.addAttribute("project", new ProjectModel(0L, "", LocalDate.now())); return "addproject";
     }
 
     @PostMapping("/projects")
@@ -50,11 +47,9 @@ public class ProjectClientController {
                 .bodyValue(project)
                 .retrieve()
                 .bodyToMono(Void.class)
-                .block();
-            return "redirect:/projects";
+                .block(); return "redirect:/projects";
         } catch (final HttpServerErrorException e) {
-            model.addAttribute("msg", e.getResponseBodyAsString());
-            return "addproject";
+            model.addAttribute("msg", e.getResponseBodyAsString()); return "addproject";
         }
     }
 

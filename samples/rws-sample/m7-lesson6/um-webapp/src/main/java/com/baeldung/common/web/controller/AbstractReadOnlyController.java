@@ -23,6 +23,7 @@ import com.baeldung.common.web.exception.MyResourceNotFoundException;
 import com.baeldung.um.persistence.model.Privilege;
 
 public abstract class AbstractReadOnlyController<D extends IDto, E extends IEntity> {
+
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     protected Class<D> clazz;
@@ -30,8 +31,7 @@ public abstract class AbstractReadOnlyController<D extends IDto, E extends IEnti
     public AbstractReadOnlyController(final Class<D> clazzToSet) {
         super();
 
-        Objects.requireNonNull(clazzToSet);
-        clazz = clazzToSet;
+        Objects.requireNonNull(clazzToSet); clazz = clazzToSet;
     }
 
     // find - one
@@ -55,8 +55,7 @@ public abstract class AbstractReadOnlyController<D extends IDto, E extends IEnti
     }
 
     protected final List<D> findPaginatedAndSortedInternal(final int page, final int size, final String sortBy, final String sortOrder) {
-        final Page<E> entities = getService().findAllPaginatedAndSortedRaw(page, size, sortBy, sortOrder);
-        List<D> dtos = entities.stream()
+        final Page<E> entities = getService().findAllPaginatedAndSortedRaw(page, size, sortBy, sortOrder); List<D> dtos = entities.stream()
             .map(this::convertToDto)
             .collect(Collectors.toList());
 
@@ -68,8 +67,7 @@ public abstract class AbstractReadOnlyController<D extends IDto, E extends IEnti
     }
 
     protected final List<D> findPaginatedInternal(final int page, final int size) {
-        final Page<E> entities = getService().findAllPaginatedRaw(page, size);
-        List<D> dtos = (List<D>) entities.stream()
+        final Page<E> entities = getService().findAllPaginatedRaw(page, size); List<D> dtos = (List<D>) entities.stream()
             .map(this::convertToDto)
             .collect(Collectors.toList());
 
@@ -81,8 +79,7 @@ public abstract class AbstractReadOnlyController<D extends IDto, E extends IEnti
     }
 
     protected final List<D> findAllSortedInternal(final String sortBy, final String sortOrder) {
-        final List<E> entities = getService().findAllSorted(sortBy, sortOrder);
-        return (List<D>) entities.stream()
+        final List<E> entities = getService().findAllSorted(sortBy, sortOrder); return (List<D>) entities.stream()
             .map(this::convertToDto)
             .collect(Collectors.toList());
     }
@@ -100,7 +97,7 @@ public abstract class AbstractReadOnlyController<D extends IDto, E extends IEnti
 
     /**
      * Counts all {@link Privilege} resources in the system
-     * 
+     *
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/count")

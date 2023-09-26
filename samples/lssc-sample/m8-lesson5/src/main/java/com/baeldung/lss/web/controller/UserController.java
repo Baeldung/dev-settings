@@ -57,27 +57,21 @@ class UserController {
     public ModelAndView create(@Valid final User user, final BindingResult result, final RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("tl/form", "formErrors", result.getAllErrors());
-        }
-        try {
+        } try {
             if (user.getId() == null) {
-                userService.registerNewUser(user);
-                redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
+                userService.registerNewUser(user); redirect.addFlashAttribute("globalMessage", "Successfully created a new user");
             } else {
-                userService.updateExistingUser(user);
-                redirect.addFlashAttribute("globalMessage", "Successfully updated the user");
+                userService.updateExistingUser(user); redirect.addFlashAttribute("globalMessage", "Successfully updated the user");
             }
         } catch (EmailExistsException e) {
-            result.addError(new FieldError("user", "email", e.getMessage()));
-            return new ModelAndView("tl/form", "user", user);
-        }
-        return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());
+            result.addError(new FieldError("user", "email", e.getMessage())); return new ModelAndView("tl/form", "user", user);
+        } return new ModelAndView("redirect:/user/{user.id}", "user.id", user.getId());
     }
 
     @RequestMapping(value = "delete/{id}")
     public ModelAndView delete(@PathVariable("id") final Long id) {
         this.userRepository.findById(id)
-            .ifPresent(user -> this.userRepository.delete(user));
-        return new ModelAndView("redirect:/");
+            .ifPresent(user -> this.userRepository.delete(user)); return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)

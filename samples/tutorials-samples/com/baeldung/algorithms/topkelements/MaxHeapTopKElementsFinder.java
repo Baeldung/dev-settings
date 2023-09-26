@@ -18,8 +18,7 @@ public class MaxHeapTopKElementsFinder implements TopKElementsFinder<Integer> {
             }
         });
 
-        List<Integer> topKList = new ArrayList<>(maxHeap);
-        Collections.reverse(topKList);
+        List<Integer> topKList = new ArrayList<>(maxHeap); Collections.reverse(topKList);
 
         return topKList;
     }

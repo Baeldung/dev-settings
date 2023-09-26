@@ -30,7 +30,9 @@ public class GatewayLiveTest {
     private static final String GATEWAY_SERVER_BASE_URL = "http://localhost:8084/lsso-gateway";
 
     private static final String REDIRECT_URL = "http://localhost:8082/lsso-client/login/oauth2/code/custom";
-    private static final String AUTHORIZE_URL_PATTERN = AUTH_SERVER_BASE_URL + "/auth/realms/baeldung/protocol/openid-connect/auth?response_type=code&client_id=lssoClient&scope=%s&redirect_uri=" + REDIRECT_URL;
+    private static final String AUTHORIZE_URL_PATTERN =
+        AUTH_SERVER_BASE_URL + "/auth/realms/baeldung/protocol/openid-connect/auth?response_type=code&client_id=lssoClient&scope=%s&redirect_uri=" +
+            REDIRECT_URL;
     private static final String TOKEN_URL = AUTH_SERVER_BASE_URL + "/auth/realms/baeldung/protocol/openid-connect/token";
     private static final String GATEWAY_PROJECTS_RESOURCE_URL = GATEWAY_SERVER_BASE_URL + "/projects";
     private static final String GATEWAY_TASKS_RESOURCE_URL = GATEWAY_SERVER_BASE_URL + "/tasks?projectId=1";
@@ -42,8 +44,7 @@ public class GatewayLiveTest {
         // Access resources using access token
         Response response = RestAssured.given()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-            .get(GATEWAY_PROJECTS_RESOURCE_URL);
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+            .get(GATEWAY_PROJECTS_RESOURCE_URL); assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -53,8 +54,7 @@ public class GatewayLiveTest {
         // Access resources using access token
         Response response = RestAssured.given()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-            .get(GATEWAY_TASKS_RESOURCE_URL);
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+            .get(GATEWAY_TASKS_RESOURCE_URL); assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -64,15 +64,13 @@ public class GatewayLiveTest {
         // Access resources using access token
         Response response = RestAssured.given()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-            .get(GATEWAY_SERVER_BASE_URL + "/other");
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.NOT_FOUND.value());
+            .get(GATEWAY_SERVER_BASE_URL + "/other"); assertThat(response.statusCode()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void givenUnauthorized_whenGetProjectResource_thenUnauthorized() {
         Response response = RestAssured.given()
-            .get(GATEWAY_PROJECTS_RESOURCE_URL);
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+            .get(GATEWAY_PROJECTS_RESOURCE_URL); assertThat(response.statusCode()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
     }
 
     private String obtainAccessToken(String scopes) {
@@ -80,8 +78,7 @@ public class GatewayLiveTest {
         Response response = RestAssured.given()
             .redirects()
             .follow(false)
-            .get(String.format(AUTHORIZE_URL_PATTERN, scopes));
-        String authSessionId = response.getCookie("AUTH_SESSION_ID");
+            .get(String.format(AUTHORIZE_URL_PATTERN, scopes)); String authSessionId = response.getCookie("AUTH_SESSION_ID");
         String kcPostAuthenticationUrl = response.asString()
             .split("action=\"")[1].split("\"")[0].replace("&amp;", "&");
 
@@ -91,24 +88,16 @@ public class GatewayLiveTest {
             .follow(false)
             .cookie("AUTH_SESSION_ID", authSessionId)
             .formParams("username", USERNAME, "password", PASSWORD, "credentialId", "")
-            .post(kcPostAuthenticationUrl);
-        assertThat(HttpStatus.FOUND.value()).isEqualTo(response.getStatusCode());
+            .post(kcPostAuthenticationUrl); assertThat(HttpStatus.FOUND.value()).isEqualTo(response.getStatusCode());
 
         // extract authorization code
-        String location = response.getHeader(HttpHeaders.LOCATION);
-        String code = location.split("code=")[1].split("&")[0];
+        String location = response.getHeader(HttpHeaders.LOCATION); String code = location.split("code=")[1].split("&")[0];
 
         // get access token
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("grant_type", "authorization_code");
-        params.put("code", code);
-        params.put("client_id", CLIENT_ID);
-        params.put("redirect_uri", REDIRECT_URL);
-        params.put("client_secret", CLIENT_SECRET);
-        response = RestAssured.given()
+        Map<String, String> params = new HashMap<String, String>(); params.put("grant_type", "authorization_code"); params.put("code", code);
+        params.put("client_id", CLIENT_ID); params.put("redirect_uri", REDIRECT_URL); params.put("client_secret", CLIENT_SECRET); response = RestAssured.given()
             .formParams(params)
-            .post(TOKEN_URL);
-        return response.jsonPath()
+            .post(TOKEN_URL); return response.jsonPath()
             .getString("access_token");
     }
 

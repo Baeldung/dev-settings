@@ -6,8 +6,7 @@ public class ListNode {
     private ListNode next;
 
     ListNode(int data) {
-        this.data = data;
-        this.next = null;
+        this.data = data; this.next = null;
     }
 
     public int getData() {

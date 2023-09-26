@@ -9,8 +9,7 @@ public class FollowersPath {
     private long count;
 
     public FollowersPath() {
-        super();
-        this.accounts = new ArrayList<>();
+        super(); this.accounts = new ArrayList<>();
     }
 
     public List<Follower> getAccounts() {
@@ -31,8 +30,7 @@ public class FollowersPath {
 
     @Override
     public String toString() {
-        String details = "";
-        for (Follower a : accounts) {
+        String details = ""; for (Follower a : accounts) {
             details += a.toString() + ", ";
         }
 

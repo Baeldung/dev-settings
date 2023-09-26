@@ -32,9 +32,7 @@ public class RedirectController {
 
     private ResponseEntity<Void> singularToPlural(HttpServletRequest request) {
         String correctUri = request.getRequestURL()
-            .toString() + "s";
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(HttpHeaders.LOCATION, correctUri);
+            .toString() + "s"; HttpHeaders responseHeaders = new HttpHeaders(); responseHeaders.add(HttpHeaders.LOCATION, correctUri);
 
         return new ResponseEntity<>(responseHeaders, HttpStatus.MOVED_PERMANENTLY);
     }

@@ -29,17 +29,13 @@ public class ProjectController {
 
     @GetMapping
     public String getProjects(Model model) {
-        Iterable<Project> projects = projectService.findAll();
-        List<ProjectDto> projectDtos = new ArrayList<>();
-        projects.forEach(p -> projectDtos.add(convertToDto(p)));
-        model.addAttribute("projects", projectDtos);
-        return "projects";
+        Iterable<Project> projects = projectService.findAll(); List<ProjectDto> projectDtos = new ArrayList<>();
+        projects.forEach(p -> projectDtos.add(convertToDto(p))); model.addAttribute("projects", projectDtos); return "projects";
     }
 
     @GetMapping("/new")
     public String newProject(Model model) {
-        model.addAttribute("project", new ProjectDto());
-        return "new-project";
+        model.addAttribute("project", new ProjectDto()); return "new-project";
     }
 
     @PostMapping
@@ -52,20 +48,16 @@ public class ProjectController {
     //
 
     protected ProjectDto convertToDto(Project entity) {
-        ProjectDto dto = new ProjectDto(entity.getId(), entity.getName(), entity.getDateCreated());
-        dto.setTasks(entity.getTasks()
+        ProjectDto dto = new ProjectDto(entity.getId(), entity.getName(), entity.getDateCreated()); dto.setTasks(entity.getTasks()
             .stream()
             .map(t -> convertTaskToDto(t))
-            .collect(Collectors.toSet()));
-        return dto;
+            .collect(Collectors.toSet())); return dto;
     }
 
     protected Project convertToEntity(ProjectDto dto) {
-        Project project = new Project(dto.getName(), dto.getDateCreated());
-        if (!StringUtils.isEmpty(dto.getId())) {
+        Project project = new Project(dto.getName(), dto.getDateCreated()); if (!StringUtils.isEmpty(dto.getId())) {
             project.setId(dto.getId());
-        }
-        return project;
+        } return project;
     }
 
     protected TaskDto convertTaskToDto(Task entity) {
@@ -77,8 +69,7 @@ public class ProjectController {
         Task task = new Task(dto.getName(), dto.getDescription(), dto.getDateCreated(), dto.getDueDate(), dto.getStatus());
         if (!StringUtils.isEmpty(dto.getId())) {
             task.setId(dto.getId());
-        }
-        return task;
+        } return task;
     }
 
 }

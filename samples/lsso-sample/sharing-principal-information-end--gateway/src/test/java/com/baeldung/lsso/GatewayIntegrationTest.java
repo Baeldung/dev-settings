@@ -39,14 +39,12 @@ public class GatewayIntegrationTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        projectResourceServer.start(8081);
-        taskResourceServer.start(8085);
+        projectResourceServer.start(8081); taskResourceServer.start(8085);
     }
 
     @AfterEach
     public void tearDown() throws Exception {
-        projectResourceServer.shutdown();
-        taskResourceServer.shutdown();
+        projectResourceServer.shutdown(); taskResourceServer.shutdown();
     }
 
     @Test
@@ -57,7 +55,7 @@ public class GatewayIntegrationTest {
             .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
 
         this.webTestClient.mutateWith(mockJwt().jwt(jwt -> jwt.claim("scope", "read write custom")
-            .subject("customSubjectId")))
+                .subject("customSubjectId")))
             .get()
             .uri(BASE_GATEWAY_URL_PATH + "/projects")
             .exchange()
@@ -65,19 +63,17 @@ public class GatewayIntegrationTest {
             .isOk()
             .expectBody()
             .consumeWith(response -> {
-                String bodyAsString = new String(response.getResponseBodyContent());
-                assertThat(bodyAsString).contains("Project 1")
+                String bodyAsString = new String(response.getResponseBodyContent()); assertThat(bodyAsString).contains("Project 1")
                     .contains("Project 2")
                     .contains("Project 3")
                     .doesNotContain("Project 4");
             });
 
         RecordedRequest capturedProjectRequest = projectResourceServer.takeRequest();
-        assertThat(capturedProjectRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
-        String projectsPath = new URI(PROJECT_SVC_ENDPOINT_URL).getPath();
-        assertThat(capturedProjectRequest.getPath()).isEqualTo(projectsPath);
-        assertThat(capturedProjectRequest.getHeaders()
-            .toMultimap()).hasEntrySatisfying("BAEL-authorities", valueList -> valueList.containsAll(Arrays.asList("SCOPE_write", "SCOPE_read", "SCOPE_custom")));
+        assertThat(capturedProjectRequest.getMethod()).isEqualTo(HttpMethod.GET.name()); String projectsPath = new URI(PROJECT_SVC_ENDPOINT_URL).getPath();
+        assertThat(capturedProjectRequest.getPath()).isEqualTo(projectsPath); assertThat(capturedProjectRequest.getHeaders()
+            .toMultimap()).hasEntrySatisfying("BAEL-authorities",
+            valueList -> valueList.containsAll(Arrays.asList("SCOPE_write", "SCOPE_read", "SCOPE_custom")));
         assertThat(capturedProjectRequest.getHeader("BAEL-username")).isEqualTo("customSubjectId");
     }
 
@@ -91,7 +87,7 @@ public class GatewayIntegrationTest {
         String tasksQueryParamsSection = "?projectId=1";
 
         this.webTestClient.mutateWith(mockJwt().jwt(jwt -> jwt.claim("scope", "read write custom")
-            .subject("customSubjectId")))
+                .subject("customSubjectId")))
             .get()
             .uri(BASE_GATEWAY_URL_PATH + "/tasks" + tasksQueryParamsSection)
             .exchange()
@@ -99,24 +95,22 @@ public class GatewayIntegrationTest {
             .isOk()
             .expectBody()
             .consumeWith(response -> {
-                String bodyAsString = new String(response.getResponseBodyContent());
-                assertThat(bodyAsString).contains("Task 1")
+                String bodyAsString = new String(response.getResponseBodyContent()); assertThat(bodyAsString).contains("Task 1")
                     .doesNotContain("Task 2");
             });
 
-        RecordedRequest capturedTaskRequest = taskResourceServer.takeRequest();
-        assertThat(capturedTaskRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
+        RecordedRequest capturedTaskRequest = taskResourceServer.takeRequest(); assertThat(capturedTaskRequest.getMethod()).isEqualTo(HttpMethod.GET.name());
         URI tasksPath = new URI(TASK_SVC_ENDPOINT_URL + tasksQueryParamsSection);
-        assertThat(capturedTaskRequest.getPath()).isEqualTo(tasksPath.getPath() + "?" + tasksPath.getQuery());
-        assertThat(capturedTaskRequest.getHeaders()
-            .toMultimap()).hasEntrySatisfying("BAEL-authorities", valueList -> valueList.containsAll(Arrays.asList("SCOPE_write", "SCOPE_read", "SCOPE_custom")));
+        assertThat(capturedTaskRequest.getPath()).isEqualTo(tasksPath.getPath() + "?" + tasksPath.getQuery()); assertThat(capturedTaskRequest.getHeaders()
+            .toMultimap()).hasEntrySatisfying("BAEL-authorities",
+            valueList -> valueList.containsAll(Arrays.asList("SCOPE_write", "SCOPE_read", "SCOPE_custom")));
         assertThat(capturedTaskRequest.getHeader("BAEL-username")).isEqualTo("customSubjectId");
     }
 
     @Test
     public void givenJwt_whenRequestUnmappedEndpoint_then404NotFound() throws Exception {
         this.webTestClient.mutateWith(mockJwt().jwt(jwt -> jwt.claim("scope", "read write custom")
-            .subject("customSubjectId")))
+                .subject("customSubjectId")))
             .get()
             .uri(BASE_GATEWAY_URL_PATH + "/other")
             .exchange()

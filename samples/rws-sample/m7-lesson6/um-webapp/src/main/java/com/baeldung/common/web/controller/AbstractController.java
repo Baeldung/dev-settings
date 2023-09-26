@@ -16,8 +16,7 @@ public abstract class AbstractController<D extends IDto, E extends IEntity> exte
     // save/create/persist
 
     protected final void createInternal(final D resource) {
-        RestPreconditions.checkRequestElementNotNull(resource);
-        RestPreconditions.checkRequestState(resource.getId() == null);
+        RestPreconditions.checkRequestElementNotNull(resource); RestPreconditions.checkRequestState(resource.getId() == null);
         getService().create(convertToEntity(resource));
     }
 
@@ -27,10 +26,8 @@ public abstract class AbstractController<D extends IDto, E extends IEntity> exte
      * - note: the operation is IDEMPOTENT <br/>
      */
     protected final void updateInternal(final long id, final D resource) {
-        RestPreconditions.checkRequestElementNotNull(resource);
-        RestPreconditions.checkRequestElementNotNull(resource.getId());
-        RestPreconditions.checkRequestState(resource.getId() == id);
-        RestPreconditions.checkNotNull(getService().findOne(resource.getId()));
+        RestPreconditions.checkRequestElementNotNull(resource); RestPreconditions.checkRequestElementNotNull(resource.getId());
+        RestPreconditions.checkRequestState(resource.getId() == id); RestPreconditions.checkNotNull(getService().findOne(resource.getId()));
 
         getService().update(convertToEntity(resource));
     }

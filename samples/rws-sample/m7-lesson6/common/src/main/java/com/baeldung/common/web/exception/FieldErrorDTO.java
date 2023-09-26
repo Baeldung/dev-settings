@@ -7,8 +7,7 @@ public class FieldErrorDTO {
     private final String message;
 
     public FieldErrorDTO(final String field, final String message) {
-        this.field = field;
-        this.message = message;
+        this.field = field; this.message = message;
     }
 
     // API

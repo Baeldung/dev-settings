@@ -26,12 +26,10 @@ public class AddCustomHeadersGlobalFilter implements GlobalFilter {
         String[] authorities = authentication.getAuthorities()
             .stream()
             .map(GrantedAuthority::getAuthority)
-            .toArray(String[]::new);
-        exchange.getRequest()
+            .toArray(String[]::new); exchange.getRequest()
             .mutate()
             .header("BAEL-authorities", authorities)
-            .header("BAEL-username", authentication.getName());
-        return exchange;
+            .header("BAEL-username", authentication.getName()); return exchange;
     }
 
 }

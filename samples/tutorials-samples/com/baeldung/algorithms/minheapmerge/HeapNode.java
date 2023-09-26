@@ -7,7 +7,6 @@ public class HeapNode {
     int nextElementIndex = 1;
 
     public HeapNode(int element, int arrayIndex) {
-        this.element = element;
-        this.arrayIndex = arrayIndex;
+        this.element = element; this.arrayIndex = arrayIndex;
     }
 }

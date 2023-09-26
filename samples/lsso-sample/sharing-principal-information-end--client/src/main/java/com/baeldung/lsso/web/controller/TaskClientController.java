@@ -29,9 +29,7 @@ public class TaskClientController {
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<List<TaskModel>>() {
             })
-            .block();
-        model.addAttribute("tasks", tasks);
-        return "tasks";
+            .block(); model.addAttribute("tasks", tasks); return "tasks";
     }
 
 }

@@ -7,9 +7,7 @@ public class ApiError {
     private String developerMessage;
 
     public ApiError(final int status, final String message, final String developerMessage) {
-        this.status = status;
-        this.message = message;
-        this.developerMessage = developerMessage;
+        this.status = status; this.message = message; this.developerMessage = developerMessage;
     }
 
     //
@@ -42,15 +40,13 @@ public class ApiError {
 
     @Override
     public final String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ApiError [status=")
+        final StringBuilder builder = new StringBuilder(); builder.append("ApiError [status=")
             .append(status)
             .append(", message=")
             .append(message)
             .append(", developerMessage=")
             .append(developerMessage)
-            .append("]");
-        return builder.toString();
+            .append("]"); return builder.toString();
     }
 
 }

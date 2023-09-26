@@ -14,8 +14,7 @@ public class ValidationErrorDTO {
     //
 
     public final void addFieldError(final String path, final String message) {
-        final FieldErrorDTO error = new FieldErrorDTO(path, message);
-        fieldErrors.add(error);
+        final FieldErrorDTO error = new FieldErrorDTO(path, message); fieldErrors.add(error);
     }
 
     public final List<FieldErrorDTO> getFieldErrors() {
@@ -26,11 +25,9 @@ public class ValidationErrorDTO {
 
     @Override
     public final String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ValidationErrorDTO [fieldErrors=")
+        final StringBuilder builder = new StringBuilder(); builder.append("ValidationErrorDTO [fieldErrors=")
             .append(fieldErrors)
-            .append("]");
-        return builder.toString();
+            .append("]"); return builder.toString();
     }
 
 }

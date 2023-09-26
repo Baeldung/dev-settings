@@ -16,7 +16,7 @@ public final class RestUtil {
 
     /**
      * This is to be used when a Create REST request is sent to another service - if the response does not have the expected 201 status code, then an exception is thrown
-     * 
+     *
      * @param createResponse
      *            the response returned on create.
      * @param message
@@ -26,8 +26,7 @@ public final class RestUtil {
         if (createResponse.getStatusCode()
             .value() == 409) {
             throw new MyConflictException(message);
-        }
-        if (createResponse.getStatusCode()
+        } if (createResponse.getStatusCode()
             .value() != 201) {
             throw new IllegalStateException(message);
         }
@@ -35,7 +34,7 @@ public final class RestUtil {
 
     /**
      * This is to be used when an exception is
-     * 
+     *
      * @param ex
      *            the not client status code exception.
      * @param message

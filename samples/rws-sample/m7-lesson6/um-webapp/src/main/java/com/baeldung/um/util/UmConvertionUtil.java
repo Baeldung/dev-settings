@@ -29,7 +29,6 @@ public final class UmConvertionUtil {
     }
 
     public static Collection<String> convertRolesToPrivilegeNames(final Collection<Role> roles) {
-        final Set<Privilege> privileges = convertRolesToPrivileges(roles);
-        return convertPrivilegesToPrivilegeNames(privileges);
+        final Set<Privilege> privileges = convertRolesToPrivileges(roles); return convertPrivilegesToPrivilegeNames(privileges);
     }
 }

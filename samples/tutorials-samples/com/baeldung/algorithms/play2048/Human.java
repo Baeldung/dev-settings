@@ -49,9 +49,7 @@ public class Human {
 
     private int generateScore(Board board, int depth) {
         if (depth >= 3) {
-            int finalScore = calculateFinalScore(board);
-            LOG.debug("Final score for board {}: {}", board, finalScore);
-            return finalScore;
+            int finalScore = calculateFinalScore(board); LOG.debug("Final score for board {}: {}", board, finalScore); return finalScore;
         }
 
         return board.emptyCells()
@@ -59,12 +57,9 @@ public class Human {
             .parallel()
             .flatMap(cell -> Stream.of(new Pair<>(cell, 2), new Pair<>(cell, 4)))
             .mapToInt(move -> {
-                LOG.debug("Simulating move {} at depth {}", move, depth);
-                Board newBoard = board.placeTile(move.getFirst(), move.getSecond());
-                int boardScore = calculateScore(newBoard, depth + 1);
-                int calculatedScore = (int) (boardScore * (move.getSecond() == 2 ? 0.9 : 0.1));
-                LOG.debug("Calculated score for board {} and move {} at depth {}: {}", newBoard, move, depth, calculatedScore);
-                return calculatedScore;
+                LOG.debug("Simulating move {} at depth {}", move, depth); Board newBoard = board.placeTile(move.getFirst(), move.getSecond());
+                int boardScore = calculateScore(newBoard, depth + 1); int calculatedScore = (int) (boardScore * (move.getSecond() == 2 ? 0.9 : 0.1));
+                LOG.debug("Calculated score for board {} and move {} at depth {}: {}", newBoard, move, depth, calculatedScore); return calculatedScore;
             })
             .sum();
     }
@@ -80,18 +75,14 @@ public class Human {
     }
 
     private int calculateFinalScore(Board board) {
-        List<List<Integer>> rowsToScore = new ArrayList<>();
-        for (int i = 0; i < board.getSize(); ++i) {
-            List<Integer> row = new ArrayList<>();
-            List<Integer> col = new ArrayList<>();
+        List<List<Integer>> rowsToScore = new ArrayList<>(); for (int i = 0; i < board.getSize(); ++i) {
+            List<Integer> row = new ArrayList<>(); List<Integer> col = new ArrayList<>();
 
             for (int j = 0; j < board.getSize(); ++j) {
-                row.add(board.getCell(new Cell(i, j)));
-                col.add(board.getCell(new Cell(j, i)));
+                row.add(board.getCell(new Cell(i, j))); col.add(board.getCell(new Cell(j, i)));
             }
 
-            rowsToScore.add(row);
-            rowsToScore.add(col);
+            rowsToScore.add(row); rowsToScore.add(col);
         }
 
         return rowsToScore.stream()
@@ -101,13 +92,8 @@ public class Human {
                     .filter(value -> value != 0)
                     .collect(Collectors.toList());
 
-                int numMerges = 0;
-                int monotonicityLeft = 0;
-                int monotonicityRight = 0;
-                for (int i = 0; i < preMerged.size() - 1; ++i) {
-                    Integer first = preMerged.get(i);
-                    Integer second = preMerged.get(i + 1);
-                    if (first.equals(second)) {
+                int numMerges = 0; int monotonicityLeft = 0; int monotonicityRight = 0; for (int i = 0; i < preMerged.size() - 1; ++i) {
+                    Integer first = preMerged.get(i); Integer second = preMerged.get(i + 1); if (first.equals(second)) {
                         ++numMerges;
                     } else if (first > second) {
                         monotonicityLeft += first - second;
@@ -116,16 +102,11 @@ public class Human {
                     }
                 }
 
-                int score = 1000;
-                score += 250 * row.stream()
+                int score = 1000; score += 250 * row.stream()
                     .filter(value -> value == 0)
-                    .count();
-                score += 750 * numMerges;
-                score -= 10 * row.stream()
+                    .count(); score += 750 * numMerges; score -= 10 * row.stream()
                     .mapToInt(value -> value)
-                    .sum();
-                score -= 50 * Math.min(monotonicityLeft, monotonicityRight);
-                return score;
+                    .sum(); score -= 50 * Math.min(monotonicityLeft, monotonicityRight); return score;
             })
             .sum();
     }

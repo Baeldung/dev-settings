@@ -31,9 +31,7 @@ public class Project {
     private Set<Task> tasks = new HashSet<>();
 
     public Project(String code, String name, String description) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
+        this.code = code; this.name = name; this.description = description;
     }
 
     public Project() {
@@ -86,19 +84,19 @@ public class Project {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        } if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        } if (getClass() != obj.getClass()) {
             return false;
-        Project other = (Project) obj;
-        if (code == null) {
-            if (other.code != null)
+        } Project other = (Project) obj; if (code == null) {
+            if (other.code != null) {
                 return false;
-        } else if (!code.equals(other.code))
+            }
+        } else if (!code.equals(other.code)) {
             return false;
-        return true;
+        } return true;
     }
 
     @Override
