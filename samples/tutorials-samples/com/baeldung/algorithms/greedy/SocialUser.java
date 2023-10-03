@@ -24,9 +24,7 @@ public class SocialUser {
         this.followers = followers;
     }
 
-    public long getFollowersCount() {
-        return followers.size();
-    }
+    public long getFollowersCount() { return followers.size(); }
 
     public void addFollowers(List<SocialUser> followers) {
         this.followers.addAll(followers);
