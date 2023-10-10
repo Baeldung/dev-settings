@@ -32,7 +32,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     // 400
 
     @Override
-    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers,
+        final HttpStatus status, final WebRequest request) {
         logger.info("Bad Request: " + ex.getMessage());
         logger.debug("Bad Request: ", ex);
 
@@ -41,7 +42,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @Override
-    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers,
+        final HttpStatus status, final WebRequest request) {
         logger.info("Bad Request: " + ex.getMessage());
         logger.debug("Bad Request: ", ex);
 
