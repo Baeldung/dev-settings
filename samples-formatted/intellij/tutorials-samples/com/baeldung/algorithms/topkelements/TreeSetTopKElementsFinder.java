@@ -12,8 +12,6 @@ public class TreeSetTopKElementsFinder implements TopKElementsFinder<Integer> {
         Set<Integer> sortedSet = new TreeSet<>(Comparator.reverseOrder());
         sortedSet.addAll(input);
 
-        return sortedSet.stream()
-            .limit(k)
-            .collect(Collectors.toList());
+        return sortedSet.stream().limit(k).collect(Collectors.toList());
     }
 }

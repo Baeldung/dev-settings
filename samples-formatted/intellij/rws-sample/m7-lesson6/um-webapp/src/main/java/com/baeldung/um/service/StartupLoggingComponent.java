@@ -52,7 +52,8 @@ public class StartupLoggingComponent implements InitializingBean {
     }
 
     private void logPersistenceTarget(final Environment environment) {
-        final String envTarget = getValueOfProperty(environment, PERSISTENCE_TARGET_KEY, "h2", Lists.newArrayList("h2", "mysql", "cargo"));
+        final String envTarget = getValueOfProperty(environment, PERSISTENCE_TARGET_KEY, "h2",
+            Lists.newArrayList("h2", "mysql", "cargo"));
         logger.info("{} = {}", PERSISTENCE_TARGET_KEY, envTarget);
     }
 
@@ -63,12 +64,13 @@ public class StartupLoggingComponent implements InitializingBean {
 
     //
 
-    private final String getValueOfProperty(final Environment environment, final String propertyKey, final String propertyDefaultValue,
-        final List<String> acceptablePropertyValues) {
+    private final String getValueOfProperty(final Environment environment, final String propertyKey,
+        final String propertyDefaultValue, final List<String> acceptablePropertyValues) {
         String propValue = environment.getProperty(propertyKey);
         if (propValue == null) {
             propValue = propertyDefaultValue;
-            logger.info("The {} doesn't have an explicit value; default value is = {}", propertyKey, propertyDefaultValue);
+            logger.info("The {} doesn't have an explicit value; default value is = {}", propertyKey,
+                propertyDefaultValue);
         }
 
         if (acceptablePropertyValues != null) {

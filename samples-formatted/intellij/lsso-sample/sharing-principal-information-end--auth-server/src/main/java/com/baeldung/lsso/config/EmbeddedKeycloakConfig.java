@@ -20,15 +20,17 @@ import org.springframework.context.annotation.Configuration;
 public class EmbeddedKeycloakConfig {
 
     @Bean
-    ServletRegistrationBean<HttpServlet30Dispatcher> keycloakJaxRsApplication(KeycloakServerProperties keycloakServerProperties, DataSource dataSource)
-        throws Exception {
+    ServletRegistrationBean<HttpServlet30Dispatcher> keycloakJaxRsApplication(
+        KeycloakServerProperties keycloakServerProperties, DataSource dataSource) throws Exception {
 
         mockJndiEnvironment(dataSource);
         EmbeddedKeycloakApplication.keycloakServerProperties = keycloakServerProperties;
 
-        ServletRegistrationBean<HttpServlet30Dispatcher> servlet = new ServletRegistrationBean<>(new HttpServlet30Dispatcher());
+        ServletRegistrationBean<HttpServlet30Dispatcher> servlet = new ServletRegistrationBean<>(
+            new HttpServlet30Dispatcher());
         servlet.addInitParameter("javax.ws.rs.Application", EmbeddedKeycloakApplication.class.getName());
-        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX, keycloakServerProperties.getContextPath());
+        servlet.addInitParameter(ResteasyContextParameters.RESTEASY_SERVLET_MAPPING_PREFIX,
+            keycloakServerProperties.getContextPath());
         servlet.addInitParameter(ResteasyContextParameters.RESTEASY_USE_CONTAINER_FORM_PARAMS, "true");
         servlet.addUrlMappings(keycloakServerProperties.getContextPath() + "/*");
         servlet.setLoadOnStartup(1);
@@ -38,7 +40,8 @@ public class EmbeddedKeycloakConfig {
     }
 
     @Bean
-    FilterRegistrationBean<KeycloakSessionServletFilter> keycloakSessionManagement(KeycloakServerProperties keycloakServerProperties) {
+    FilterRegistrationBean<KeycloakSessionServletFilter> keycloakSessionManagement(
+        KeycloakServerProperties keycloakServerProperties) {
 
         FilterRegistrationBean<KeycloakSessionServletFilter> filter = new FilterRegistrationBean<>();
         filter.setName("Keycloak Session Management");

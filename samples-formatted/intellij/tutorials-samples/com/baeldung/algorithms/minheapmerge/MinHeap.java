@@ -24,7 +24,8 @@ public class MinHeap {
         if (leftNodeIndex < heapNodes.length && heapNodes[leftNodeIndex].element < heapNodes[index].element) {
             smallestElementIndex = leftNodeIndex;
         }
-        if (rightNodeIndex < heapNodes.length && heapNodes[rightNodeIndex].element < heapNodes[smallestElementIndex].element) {
+        if (rightNodeIndex < heapNodes.length &&
+            heapNodes[rightNodeIndex].element < heapNodes[smallestElementIndex].element) {
             smallestElementIndex = rightNodeIndex;
         }
         if (smallestElementIndex != index) {

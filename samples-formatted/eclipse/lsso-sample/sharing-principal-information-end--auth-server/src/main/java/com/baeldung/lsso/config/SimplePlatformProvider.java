@@ -25,6 +25,7 @@ public class SimplePlatformProvider implements PlatformProvider {
 
     private void exit(int status) {
         new Thread() {
+
             @Override
             public void run() {
                 System.exit(status);

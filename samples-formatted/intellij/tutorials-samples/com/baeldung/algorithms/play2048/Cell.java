@@ -22,8 +22,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Cell.class.getSimpleName() + "[", "]").add("x=" + x)
-            .add("y=" + y)
-            .toString();
+        return new StringJoiner(", ", Cell.class.getSimpleName() + "[", "]").add("x=" + x).add("y=" + y).toString();
     }
 }

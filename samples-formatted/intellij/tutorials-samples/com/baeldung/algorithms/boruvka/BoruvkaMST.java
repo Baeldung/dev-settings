@@ -6,20 +6,17 @@ import com.google.common.graph.ValueGraphBuilder;
 
 public class BoruvkaMST {
 
-    private static MutableValueGraph<Integer, Integer> mst = ValueGraphBuilder.undirected()
-        .build();
+    private static MutableValueGraph<Integer, Integer> mst = ValueGraphBuilder.undirected().build();
     private static int totalWeight;
 
     public BoruvkaMST(MutableValueGraph<Integer, Integer> graph) {
 
-        int size = graph.nodes()
-            .size();
+        int size = graph.nodes().size();
 
         UnionFind uf = new UnionFind(size);
 
         // repeat at most log N times or until we have N-1 edges
-        for (int t = 1; t < size && mst.edges()
-            .size() < size - 1; t = t + t) {
+        for (int t = 1; t < size && mst.edges().size() < size - 1; t = t + t) {
 
             EndpointPair<Integer>[] closestEdgeArray = new EndpointPair[size];
 
@@ -42,8 +39,10 @@ public class BoruvkaMST {
                     closestEdgeArray[vParent] = edge;
                 }
 
-                int uParentWeight = graph.edgeValueOrDefault(closestEdgeArray[uParent].nodeU(), closestEdgeArray[uParent].nodeV(), 0);
-                int vParentWeight = graph.edgeValueOrDefault(closestEdgeArray[vParent].nodeU(), closestEdgeArray[vParent].nodeV(), 0);
+                int uParentWeight = graph.edgeValueOrDefault(closestEdgeArray[uParent].nodeU(),
+                    closestEdgeArray[uParent].nodeV(), 0);
+                int vParentWeight = graph.edgeValueOrDefault(closestEdgeArray[vParent].nodeU(),
+                    closestEdgeArray[vParent].nodeV(), 0);
 
                 if (weight < uParentWeight) {
                     closestEdgeArray[uParent] = edge;

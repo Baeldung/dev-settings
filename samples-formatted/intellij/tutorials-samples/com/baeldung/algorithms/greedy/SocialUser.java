@@ -34,8 +34,7 @@ public class SocialUser {
 
     @Override
     public boolean equals(Object obj) {
-        return ((SocialUser) obj).getUsername()
-            .equals(username);
+        return ((SocialUser) obj).getUsername().equals(username);
     }
 
 }

@@ -25,7 +25,8 @@ public class TaskDto {
     public TaskDto() {
     }
 
-    public TaskDto(Long id, String name, String description, LocalDate dateCreated, LocalDate dueDate, TaskStatus status) {
+    public TaskDto(Long id, String name, String description, LocalDate dateCreated, LocalDate dueDate,
+        TaskStatus status) {
         this.id = id;
         this.name = name;
         this.description = description;

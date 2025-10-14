@@ -12,7 +12,8 @@ import com.baeldung.um.spring.UmServiceConfig;
 import com.baeldung.um.spring.UmWebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { UmPersistenceJpaConfig.class, UmContextConfig.class, UmServiceConfig.class, UmWebConfig.class })
+@ContextConfiguration(classes = { UmPersistenceJpaConfig.class, UmContextConfig.class, UmServiceConfig.class,
+    UmWebConfig.class })
 @WebAppConfiguration
 public class WebSpringIntegrationTest {
 

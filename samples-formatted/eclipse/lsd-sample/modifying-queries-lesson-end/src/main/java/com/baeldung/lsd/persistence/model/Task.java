@@ -13,13 +13,13 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false, updatable = false)
-    private String uuid = UUID.randomUUID()
-        .toString();
+    private String uuid = UUID.randomUUID().toString();
 
     private String name;
 
@@ -112,7 +112,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task [id=" + id + ", name=" + name + ", description=" + description + ", dueDate=" + dueDate + ", status=" + status + ", project=" + project + ", assignee=" + assignee + "]";
+        return "Task [id=" + id + ", name=" + name + ", description=" + description + ", dueDate=" + dueDate + ", status=" + status + ", project=" + project +
+            ", assignee=" + assignee + "]";
     }
 
     @Override

@@ -46,8 +46,7 @@ class TaskRepositoryIntegrationTest {
         taskRepository.save(newTask);
 
         Optional<Task> retrievedTask = taskRepository.findById(newTask.getId());
-        assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class, retrievedTask.get()
-            .getId()));
+        assertThat(retrievedTask.get()).isEqualTo(entityManager.find(Task.class, retrievedTask.get().getId()));
     }
 
     @Test

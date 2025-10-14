@@ -86,8 +86,7 @@ public class AuthorizationServerLiveTest {
         response = RestAssured.given()
             .formParams(params)
             .post(TOKEN_URL);
-        return response.jsonPath()
-            .getString("access_token");
+        return response.jsonPath().getString("access_token");
     }
 
 }

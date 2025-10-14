@@ -45,8 +45,8 @@ public class RoleController extends AbstractController<Role, Role> implements IS
 
     @Override
     @GetMapping(params = { PAGE, SIZE, SORT_BY })
-    public List<Role> findAllPaginatedAndSorted(@RequestParam(PAGE) int page, @RequestParam(SIZE) int size, @RequestParam(SORT_BY) String sortBy,
-        @RequestParam(SORT_ORDER) String sortOrder) {
+    public List<Role> findAllPaginatedAndSorted(@RequestParam(PAGE) int page, @RequestParam(SIZE) int size,
+        @RequestParam(SORT_BY) String sortBy, @RequestParam(SORT_ORDER) String sortOrder) {
         return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder);
     }
 
@@ -58,7 +58,8 @@ public class RoleController extends AbstractController<Role, Role> implements IS
 
     @Override
     @GetMapping(params = { SORT_BY })
-    public List<Role> findAllSorted(@RequestParam(value = SORT_BY) String sortBy, @RequestParam(value = SORT_ORDER) String sortOrder) {
+    public List<Role> findAllSorted(@RequestParam(value = SORT_BY) String sortBy,
+        @RequestParam(value = SORT_ORDER) String sortOrder) {
         return findAllSortedInternal(sortBy, sortOrder);
     }
 

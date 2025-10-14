@@ -13,15 +13,14 @@ import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 
-public class TaskResourceCustomAuthenticationDetailsSource implements AuthenticationDetailsSource<HttpServletRequest, GrantedAuthoritiesContainer> {
+public class TaskResourceCustomAuthenticationDetailsSource
+    implements AuthenticationDetailsSource<HttpServletRequest, GrantedAuthoritiesContainer> {
 
     @Override
     public GrantedAuthoritiesContainer buildDetails(HttpServletRequest request) {
         Enumeration<String> headerValues = request.getHeaders("BAEL-authorities");
-        Collection<GrantedAuthority> authorities = Collections.list(headerValues)
-            .stream()
-            .map(value -> new SimpleGrantedAuthority(value))
-            .collect(Collectors.toList());
+        Collection<GrantedAuthority> authorities = Collections.list(headerValues).stream()
+            .map(value -> new SimpleGrantedAuthority(value)).collect(Collectors.toList());
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(request, authorities);
     }
 

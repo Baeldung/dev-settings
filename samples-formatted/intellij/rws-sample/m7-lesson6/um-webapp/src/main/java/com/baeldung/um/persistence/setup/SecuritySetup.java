@@ -108,7 +108,8 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         Objects.requireNonNull(canUserWrite, "canUserWrite is null");
 
         createRoleIfNotExisting(Roles.ROLE_ADMIN,
-            Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
+            Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead,
+                canPrivilegeWrite));
     }
 
     final void createRoleIfNotExisting(final String name, final Set<Privilege> privileges) {

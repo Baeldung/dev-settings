@@ -38,8 +38,7 @@ class ProjectRepositoryIntegrationTest {
         newProject.setName(newName);
         projectRepository.save(newProject);
 
-        assertThat(entityManager.find(Project.class, newProject.getId())
-            .getName()).isEqualTo(newName);
+        assertThat(entityManager.find(Project.class, newProject.getId()).getName()).isEqualTo(newName);
     }
 
     @Test

@@ -53,10 +53,7 @@ public class ProjectController {
 
     protected ProjectDto convertToDto(Project entity) {
         ProjectDto dto = new ProjectDto(entity.getId(), entity.getName(), entity.getDateCreated());
-        dto.setTasks(entity.getTasks()
-            .stream()
-            .map(t -> convertTaskToDto(t))
-            .collect(Collectors.toSet()));
+        dto.setTasks(entity.getTasks().stream().map(t -> convertTaskToDto(t)).collect(Collectors.toSet()));
         return dto;
     }
 
@@ -69,12 +66,14 @@ public class ProjectController {
     }
 
     protected TaskDto convertTaskToDto(Task entity) {
-        TaskDto dto = new TaskDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getDateCreated(), entity.getDueDate(), entity.getStatus());
+        TaskDto dto = new TaskDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getDateCreated(),
+            entity.getDueDate(), entity.getStatus());
         return dto;
     }
 
     protected Task convertTaskToEntity(TaskDto dto) {
-        Task task = new Task(dto.getName(), dto.getDescription(), dto.getDateCreated(), dto.getDueDate(), dto.getStatus());
+        Task task = new Task(dto.getName(), dto.getDescription(), dto.getDateCreated(), dto.getDueDate(),
+            dto.getStatus());
         if (!StringUtils.isEmpty(dto.getId())) {
             task.setId(dto.getId());
         }

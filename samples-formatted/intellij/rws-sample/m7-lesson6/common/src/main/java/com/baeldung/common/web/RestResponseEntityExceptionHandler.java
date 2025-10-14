@@ -33,8 +33,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     // 400
 
     @Override
-    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers,
-        final HttpStatus status, final WebRequest request) {
+    protected final ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex,
+        final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         logger.info("Bad Request: " + ex.getMessage());
         logger.debug("Bad Request: ", ex);
 
@@ -43,8 +43,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @Override
-    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers,
-        final HttpStatus status, final WebRequest request) {
+    protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
+        final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         logger.info("Bad Request: " + ex.getMessage());
         logger.debug("Bad Request: ", ex);
 
@@ -55,7 +55,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, dto, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler(value = { ConstraintViolationException.class, DataIntegrityViolationException.class, MyBadRequestException.class })
+    @ExceptionHandler(value = { ConstraintViolationException.class, DataIntegrityViolationException.class,
+        MyBadRequestException.class })
     protected final ResponseEntity<Object> handleBadRequest(final RuntimeException ex, final WebRequest request) {
         logger.info("Bad Request: " + ex.getLocalizedMessage());
         logger.debug("Bad Request: ", ex);
@@ -77,7 +78,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     // 404
 
-    @ExceptionHandler({ EntityNotFoundException.class, MyEntityNotFoundException.class, MyResourceNotFoundException.class })
+    @ExceptionHandler({ EntityNotFoundException.class, MyEntityNotFoundException.class,
+        MyResourceNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
         logger.warn("Not Found: " + ex.getMessage());
 
@@ -87,7 +89,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     // 409
 
-    @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class, MyConflictException.class })
+    @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class,
+        MyConflictException.class })
     protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
         logger.warn("Conflict: " + ex.getMessage());
 
@@ -98,7 +101,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     // 415
 
     @ExceptionHandler({ InvalidMimeTypeException.class, InvalidMediaTypeException.class })
-    protected ResponseEntity<Object> handleInvalidMimeTypeException(final IllegalArgumentException ex, final WebRequest request) {
+    protected ResponseEntity<Object> handleInvalidMimeTypeException(final IllegalArgumentException ex,
+        final WebRequest request) {
         logger.warn("Unsupported Media Type: " + ex.getMessage());
 
         final ApiError apiError = message(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex);
@@ -130,10 +134,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     private ApiError message(final HttpStatus httpStatus, final Exception ex) {
-        final String message = ex.getMessage() == null ? ex.getClass()
-            .getSimpleName() : ex.getMessage();
-        final String devMessage = ex.getClass()
-            .getSimpleName();
+        final String message = ex.getMessage() == null ? ex.getClass().getSimpleName() : ex.getMessage();
+        final String devMessage = ex.getClass().getSimpleName();
         // devMessage = ExceptionUtils.getStackTrace(ex);
 
         return new ApiError(httpStatus.value(), message, devMessage);

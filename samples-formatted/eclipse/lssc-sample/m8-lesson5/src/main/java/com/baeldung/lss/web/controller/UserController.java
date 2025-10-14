@@ -39,10 +39,7 @@ class UserController {
 
     @RequestMapping
     public ModelAndView list() {
-        final List<User> users = activeUserService.getActiveUsers()
-            .stream()
-            .map(s -> userService.findUserByEmail(s))
-            .collect(Collectors.toList());
+        final List<User> users = activeUserService.getActiveUsers().stream().map(s -> userService.findUserByEmail(s)).collect(Collectors.toList());
         // final Iterable<User> users = this.userRepository.findAll();
 
         return new ModelAndView("tl/list", "users", users);
@@ -75,8 +72,7 @@ class UserController {
 
     @RequestMapping(value = "delete/{id}")
     public ModelAndView delete(@PathVariable("id") final Long id) {
-        this.userRepository.findById(id)
-            .ifPresent(user -> this.userRepository.delete(user));
+        this.userRepository.findById(id).ifPresent(user -> this.userRepository.delete(user));
         return new ModelAndView("redirect:/");
     }
 

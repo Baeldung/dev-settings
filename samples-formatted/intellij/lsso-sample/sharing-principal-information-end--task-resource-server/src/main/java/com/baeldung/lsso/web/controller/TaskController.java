@@ -31,6 +31,7 @@ public class TaskController {
     }
 
     protected TaskDto convertToDto(Task entity) {
-        return new TaskDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getDateCreated(), entity.getDueDate());
+        return new TaskDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getDateCreated(),
+            entity.getDueDate());
     }
 }

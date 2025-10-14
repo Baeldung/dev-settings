@@ -8,7 +8,8 @@ import com.baeldung.common.interfaces.IDto;
 
 public interface ISortingController<D extends IDto> {
 
-    public List<D> findAllPaginatedAndSorted(final int page, final int size, final String sortBy, final String sortOrder);
+    public List<D> findAllPaginatedAndSorted(final int page, final int size, final String sortBy,
+        final String sortOrder);
 
     public List<D> findAllPaginated(final int page, final int size);
 

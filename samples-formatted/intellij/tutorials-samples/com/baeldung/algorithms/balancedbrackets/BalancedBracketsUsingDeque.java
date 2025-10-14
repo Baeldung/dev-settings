@@ -24,7 +24,8 @@ public class BalancedBracketsUsingDeque {
                 deque.addFirst(ch);
             } else {
                 if (!deque.isEmpty() &&
-                    ((deque.peekFirst() == '{' && ch == '}') || (deque.peekFirst() == '[' && ch == ']') || (deque.peekFirst() == '(' && ch == ')'))) {
+                    ((deque.peekFirst() == '{' && ch == '}') || (deque.peekFirst() == '[' && ch == ']') ||
+                        (deque.peekFirst() == '(' && ch == ')'))) {
                     deque.removeFirst();
                 } else {
                     return false;
